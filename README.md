@@ -20,7 +20,8 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
    - [QR Code Generator](#qr-code-generator)  
    - [Shortcode Output](#shortcode-output)  
 5. [Endpoint Slug](#endpoint-slug)
-6.  [To Do](#to-do)  
+6.  [To Do](#to-do)
+7.  [Changelog](#changelog)
 
 ---
 
@@ -116,6 +117,13 @@ Here's a list of upcoming enhancements and features planned for future releases:
 - Add settings for customizing QR code colors, size, and format
 - Enhance shortcode attributes for advanced styling and behavior
 - Add localization and translation support
+
+---
+
+## Changelog
+
+### 1.0.0 (04-07-2025)
+- initial release
 
 
 
