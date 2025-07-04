@@ -20,9 +20,6 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
    - [QR Code Generator](#qr-code-generator)  
    - [Shortcode Output](#shortcode-output)  
 5. [Endpoint Slug](#endpoint-slug)  
-6. [File Structure](#file-structure)  
-7. [Contributing](#contributing)  
-8. [License](#license)  
 
 ---
 
@@ -58,7 +55,11 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 
 1. Under **Products → Shareable checkout URLs**, click **Add New**.  
 2. In the **Build Shareable URL** metabox, search for products by name (with stock info), set quantities, and drag to reorder.  
-3. (Optional) Enter a **Coupon code**.  
+3. (Optional) Enter a **Coupon code**.
+
+![Edit Shareable URL Options](https://media-x.hr/wp-content/uploads/2025/07/Edit-Shareable-URL.jpg)
+
+---
 
 ### Generated URL & Coupon
 
@@ -68,10 +69,14 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
   ```
 - Click **Copy** to copy the URL to your clipboard.  
 
+---
+
 ### Embedable Shortcode
 
 1. Under **Embedable Shortcode**, enter your **Link Text**.  
 2. The generated shortcode `[scu_link id="789" text="Buy Now"]` appears; click **Copy Shortcode**.  
+
+---
 
 ### QR Code Generator
 
@@ -80,6 +85,8 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
   - **Data-URI Image**: inline `<img src="data:image/png…">`  
   - **Embed Snippet**: exact HTML in a textarea  
   - **Download PNG**: saves `qr-code-{POST_ID}.png`  
+
+---
 
 ### Shortcode Output
 
@@ -92,38 +99,8 @@ echo do_shortcode( '[scu_link id="789" text="Buy Now"]' );
 
 ## Endpoint Slug
 
-By default, shareable URLs use the slug `checkout-link`.  
+By default, shareable URLs use the static slug `checkout-link`.  Until the endpoint becomes dynamic in core, this slug will be used.
 To customize, go to **WooCommerce → Settings → Advanced → Shareable URLs → Endpoint Slug**.
 
----
-
-## File Structure
-
-```
-shareable-checkout-urls.php           Main plugin file  
-includes/
-  ├ js/
-  │   ├ scu-admin.js                 Admin builder logic  
-  │   └ qr-generator.js              QR generation helper  
-  └ css/
-      └ scu-admin.css                Admin styles  
-readme.md                             This file  
-```
-
----
-
-## Contributing
-
-1. Fork the repository.  
-2. Create your feature branch (`git checkout -b my-feature`).  
-3. Commit your changes (`git commit -am 'Add new feature'`).  
-4. Push to the branch (`git push origin my-feature`).  
-5. Submit a pull request.  
-
----
-
-## License
-
-This plugin is licensed under the **GPL v2 or later**. See [LICENSE](https://www.gnu.org/licenses/gpl-2.0.html).
-
+![Endpoint Slug Settings](https://media-x.hr/wp-content/uploads/2025/07/Edit-Shareable-URL-endpoint.jpg)
 
