@@ -19,7 +19,8 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
    - [Embedable Shortcode](#embedable-shortcode)  
    - [QR Code Generator](#qr-code-generator)  
    - [Shortcode Output](#shortcode-output)  
-5. [Endpoint Slug](#endpoint-slug)  
+5. [Endpoint Slug](#endpoint-slug)
+6.  [To Do](#to-do)  
 
 ---
 
@@ -103,4 +104,18 @@ By default, shareable URLs use the static slug `checkout-link`.  Until the endpo
 To customize, go to **WooCommerce → Settings → Advanced → Shareable URLs → Endpoint Slug**.
 
 ![Endpoint Slug Settings](https://media-x.hr/wp-content/uploads/2025/07/Edit-Shareable-URL-endpoint.jpg)
+
+---
+
+## To Do
+
+Here's a list of upcoming enhancements and features planned for future releases:
+
+- Add a coupon search field in the builder metabox to replace the current textarea
+- Implement dynamic endpoint slug in WooCommerce core
+- Add settings for customizing QR code colors, size, and format
+- Enhance shortcode attributes for advanced styling and behavior
+- Add localization and translation support
+
+
 
