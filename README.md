@@ -1,4 +1,4 @@
-# Shareable Checkout URLs
+# WooCommerce Shareable Checkout URLs
 
 Build, save & edit shareable checkout URLs (products + coupon) under **Products** in WooCommerce.
 
