@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Shareable Checkout URLs
  * Description:       Build, save & edit shareable checkout URLs (products + coupon) under Products.
- * Version:           1.1.0
+ * Version:           1.0
  * Author:            Media X
  * Author URI:        https://media-x.hr
  * Text Domain:       shareable-checkout-urls
@@ -593,10 +593,6 @@ function mx_scu_advanced_settings( $settings, $current_section ) {
     return $scu_settings;
 }
 
-/**
- * Get the shareable‐checkout endpoint slug (default: checkout-link),
- * but override with the WooCommerce setting if present.
- */
 function mx_scu_get_endpoint_slug() {
     $opt = get_option( 'woocommerce_scu_endpoint_slug', '' );
     if ( $opt ) {
