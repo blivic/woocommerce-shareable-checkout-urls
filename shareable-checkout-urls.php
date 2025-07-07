@@ -268,19 +268,6 @@ function mx_scu_builder_meta_box( $post ) {
         </p>
     </div>
 
-    <script>
-	jQuery(function($){
-	  initQRGenerator({
-		codeSelector:             '#mx-scu-generated-text',
-		qrContainerSelector:      '#mx-scu-qr-container',
-		snippetOutputSelector:    '#mx-scu-qr-embed-snippet',
-		snippetContainerSelector: '#mx-scu-qr-snippet-container',  // ← new
-		outputTypeSelector:       '#mx-scu-qr-output-type',
-		postId:                   <?php echo intval( $post->ID ); ?>,
-	  });
-	});
-	</script>
-
     <?php
 }
 
