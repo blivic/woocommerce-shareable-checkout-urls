@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Shareable Checkout URLs
  * Description:       Build, save & edit shareable checkout URLs (products + coupon) under Products.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Media X
  * Author URI:        https://media-x.hr
  * Text Domain:       shareable-checkout-urls
