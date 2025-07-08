@@ -112,9 +112,7 @@ To customize, go to **WooCommerce → Settings → Advanced → Shareable URLs �
 
 Here's a list of upcoming enhancements and features planned for future releases:
 
-- Add a coupon search field in the builder metabox to replace the current textarea
 - Ensure the compatibility with dynamic endpoint slug (If/when the option gets into WooCommerce core)
-- Add settings for customizing QR code colors, size, and format
 - Enhance shortcode attributes for advanced styling and behavior
 - Optional product validation caching
 - Track link usage, order conversions, and revenue per SCU link
