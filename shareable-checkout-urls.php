@@ -115,6 +115,9 @@ function mx_scu_builder_meta_box( $post ) {
     $data   = get_post_meta( $post->ID, 'mx_scu_data', true );
     $items  = isset( $data['products'] ) ? $data['products'] : [];
     $coupon = isset( $data['coupon'] )   ? $data['coupon']   : '';
+	$qr_size       = intval( get_post_meta( $post->ID, 'mx_scu_qr_size',      true ) ) ?: 200;
+    $qr_colorDark  = get_post_meta( $post->ID, 'mx_scu_qr_colorDark', true ) ?: '#000000';
+    $qr_colorLight = get_post_meta( $post->ID, 'mx_scu_qr_colorLight', true ) ?: '#ffffff';
 
     $render_row = function( $item_id = '', $qty = 1 ) {
         $title = $item_id
@@ -173,16 +176,17 @@ function mx_scu_builder_meta_box( $post ) {
         </p>
 
         <p>
-            <label for="mx-scu-coupon">
-                <?php esc_html_e( 'Coupon code (optional)', 'shareable-checkout-urls' ); ?>
-            </label>
-            <input
-                type="text"
-                id="mx-scu-coupon"
-                name="mx_scu_coupon"
-                value="<?php echo esc_attr( $coupon ); ?>"
-            />
-        </p>
+		  <label for="mx-scu-coupon"><?php esc_html_e( 'Coupon (optional)', 'shareable-checkout-urls' ); ?></label>
+		  <input
+			type="text"
+			id="mx-scu-coupon"
+			name="mx_scu_coupon"
+			value="<?php echo esc_attr( $coupon ); ?>"
+			placeholder="<?php esc_attr_e( 'Search coupon…', 'shareable-checkout-urls' ); ?>"
+			style="width:300px;"
+		  />
+		</p>
+
 
         <p>
             <label><?php esc_html_e( 'Generated URL', 'shareable-checkout-urls' ); ?></label>
@@ -226,47 +230,91 @@ function mx_scu_builder_meta_box( $post ) {
                 <?php esc_html_e( 'Copy Shortcode', 'shareable-checkout-urls' ); ?>
             </button>
         </p>
+		
+		<p class="description" style="margin-top:10px;">
+			<?php esc_html_e('This is the basic shortcode. You can add any of the following attributes for advanced usage:', 'shareable-checkout-urls'); ?>
+		</p>
+		<ul style="font-size:13px;margin-bottom:8px;line-height:1.7;">
+			<li><strong>class</strong>: <?php esc_html_e('Add custom CSS class', 'shareable-checkout-urls'); ?></li>
+			<li><strong>style</strong>: <?php esc_html_e('Inline CSS styles', 'shareable-checkout-urls'); ?></li>
+			<li><strong>target</strong>: <code>_blank</code> <?php esc_html_e('to open in new tab', 'shareable-checkout-urls'); ?></li>
+			<li><strong>rel</strong>: <code>nofollow</code>, <code>noopener</code>, etc.</li>
+			<li><strong>button</strong>: <code>yes</code> <?php esc_html_e('to output as a button', 'shareable-checkout-urls'); ?></li>
+			<li><strong>align</strong>: <code>left</code>, <code>center</code>, <code>right</code></li>
+			<li><strong>aria-label</strong> / <strong>title</strong>: <?php esc_html_e('Accessibility label or tooltip', 'shareable-checkout-urls'); ?></li>
+		</ul>
+		<p style="font-size:13px;">
+			<?php esc_html_e('Full example:', 'shareable-checkout-urls'); ?><br>
+			<code style="background:#f7f7f7;display:inline-block;padding:6px 10px;">
+				[scu_link id="<?php echo esc_attr($post->ID); ?>" text="<?php echo esc_attr($saved_text ?: 'Buy Now'); ?>" class="my-btn" style="color:#fff;background:#222;" target="_blank" rel="nofollow" button="yes" align="center" aria-label="Fast checkout" title="Go to checkout"]
+			</code>
+		</p>
+
     </div>
 
     <div id="mx-scu-qr-builder">
-        <h2><?php esc_html_e( 'QR Code', 'shareable-checkout-urls' ); ?></h2>
+		<h2><?php esc_html_e( 'QR Code Options', 'shareable-checkout-urls' ); ?></h2>
 
-        <p>
-            <label for="mx-scu-qr-output-type">
-                <strong><?php esc_html_e( 'Output mode', 'shareable-checkout-urls' ); ?></strong>
-            </label><br/>
-            <select id="mx-scu-qr-output-type" style="width:100%;">
-                <option value="datauri"><?php esc_html_e( 'Data-URI Image', 'shareable-checkout-urls' ); ?></option>
-                <option value="embed"><?php esc_html_e( 'Embed Snippet', 'shareable-checkout-urls' ); ?></option>
-                <option value="download"><?php esc_html_e( 'Download PNG', 'shareable-checkout-urls' ); ?></option>
-            </select>
-        </p>
+		<p>
+		  <label for="mx-scu-qr-size"><strong><?php esc_html_e('QR Size (px)', 'shareable-checkout-urls'); ?></strong></label>
+		  <input type="number" id="mx-scu-qr-size" name="mx_scu_qr_size"
+				 value="<?php echo esc_attr( $qr_size ); ?>" min="50" max="1000" style="width:80px;" />
+		</p>
 
-        <div id="mx-scu-qr-container" style="margin:1em 0;"></div>
+		<p>
+		  <label for="mx-scu-qr-colorDark"><strong><?php esc_html_e('Dark Color', 'shareable-checkout-urls'); ?></strong></label>
+		  <input type="text" id="mx-scu-qr-colorDark" name="mx_scu_qr_colorDark"
+				 class="mx-scu-qr-color-field" value="<?php echo esc_attr( $qr_colorDark ); ?>" />
+		</p>
 
-        <div id="mx-scu-qr-snippet-container" style="display:none;">
+		<p>
+		  <label for="mx-scu-qr-colorLight"><strong><?php esc_html_e('Light Color', 'shareable-checkout-urls'); ?></strong></label>
+		  <input type="text" id="mx-scu-qr-colorLight" name="mx_scu_qr_colorLight"
+				 class="mx-scu-qr-color-field" value="<?php echo esc_attr( $qr_colorLight ); ?>" />
+		</p>
+
+		<p>
+			<label for="mx-scu-qr-output-type">
+				<strong><?php esc_html_e( 'Output mode', 'shareable-checkout-urls' ); ?></strong>
+			</label><br/>
+			<select id="mx-scu-qr-output-type" style="width:100%;">
+				<option value="datauri"><?php esc_html_e( 'Data-URI Image', 'shareable-checkout-urls' ); ?></option>
+				<option value="embed"><?php esc_html_e( 'Embed Snippet', 'shareable-checkout-urls' ); ?></option>
+				<option value="download"><?php esc_html_e( 'Download PNG', 'shareable-checkout-urls' ); ?></option>
+				<option value="download_svg"><?php esc_html_e( 'Download SVG',    'shareable-checkout-urls' ); ?></option>
+			</select>
+		</p>
+
+		<div id="mx-scu-qr-container" style="margin:1em 0;"></div>
+
+		<div id="mx-scu-qr-snippet-container" style="display:none;">
 			<textarea
-			  id="mx-scu-qr-embed-snippet"
-			  rows="3"
-			  style="width:100%;"
-			  readonly
-			  placeholder="<?php esc_attr_e( 'Embed code appears here…', 'shareable-checkout-urls' ); ?>"
+				id="mx-scu-qr-embed-snippet"
+				rows="3"
+				style="width:100%;"
+				readonly
+				placeholder="<?php esc_attr_e( 'Embed code appears here…', 'shareable-checkout-urls' ); ?>"
 			></textarea>
-		 </div>
-		 
-		 <p class="description">
-            <strong><?php esc_html_e( 'Data-URI Image:', 'shareable-checkout-urls' ); ?></strong>
-            <?php esc_html_e( 'Self-contained <img> you can copy or drag-drop anywhere.', 'shareable-checkout-urls' ); ?>
-        </p>
-        <p class="description">
-            <strong><?php esc_html_e( 'Embed Snippet:', 'shareable-checkout-urls' ); ?></strong>
-            <?php esc_html_e( 'Exact <img> HTML sent to the textarea for one-click copy/paste.', 'shareable-checkout-urls' ); ?>
-        </p>
-        <p class="description">
-            <strong><?php esc_html_e( 'Download PNG:', 'shareable-checkout-urls' ); ?></strong>
-            <?php esc_html_e( 'Saves a .png file named qr-code-{ID}.png to your downloads folder.', 'shareable-checkout-urls' ); ?>
-        </p>
-    </div>
+		</div>
+
+		<p class="description">
+			<strong><?php esc_html_e( 'Data-URI Image:', 'shareable-checkout-urls' ); ?></strong>
+			<?php esc_html_e( 'Self-contained <img> you can copy or drag-drop anywhere.', 'shareable-checkout-urls' ); ?>
+		</p>
+		<p class="description">
+			<strong><?php esc_html_e( 'Embed Snippet:', 'shareable-checkout-urls' ); ?></strong>
+			<?php esc_html_e( 'Exact <img> HTML sent to the textarea for one-click copy/paste.', 'shareable-checkout-urls' ); ?>
+		</p>
+		<p class="description">
+			<strong><?php esc_html_e( 'Download PNG:', 'shareable-checkout-urls' ); ?></strong>
+			<?php esc_html_e( 'Saves a .png file named qr-code-{ID}.png to your downloads folder.', 'shareable-checkout-urls' ); ?>
+		</p>
+		<p class="description">
+			<strong><?php esc_html_e( 'Download SVG:', 'shareable-checkout-urls' ); ?></strong>
+			<?php esc_html_e( 'Saves a high-quality, scalable .svg file named qr-code-{ID}.svg.', 'shareable-checkout-urls' ); ?>
+		</p>
+	</div>
+
 
     <?php
 }
@@ -294,36 +342,43 @@ function mx_scu_assets_loader() {
     wp_enqueue_style(  'select2' );
     wp_enqueue_script( 'select2' );
 	wp_enqueue_script( 'jquery-ui-sortable' );
+	wp_enqueue_style( 'wp-color-picker' );
+    wp_enqueue_script( 'wp-color-picker' );
 
     if ( did_action( 'admin_enqueue_scripts' ) ) {
-        wp_enqueue_script(
-            'mx-scu-admin',
-            plugins_url( 'includes/js/scu-admin.js', __FILE__ ),
-            [ 'jquery', 'select2' ],
-            '1.1.0',
-            true
-        );
+         wp_enqueue_script(
+			'mx-scu-admin',
+			plugins_url( 'includes/js/scu-admin.js', __FILE__ ),
+			[ 'jquery', 'select2', 'jquery-ui-sortable', 'wp-color-picker' ],
+			'1.1.0',
+			true
+		);
         wp_localize_script( 'mx-scu-admin', 'mx_scu_data', [
             'site_url' => trailingslashit( home_url() ),
             'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'post_id'  => get_the_ID(),
 			'endpoint_slug' => mx_scu_get_endpoint_slug(),
+		    'qr_size'       => intval( get_post_meta( get_the_ID(), 'mx_scu_qr_size', true ) ?: 200 ),
+            'qr_colorDark'  => get_post_meta( get_the_ID(), 'mx_scu_qr_colorDark', true ) ?: '#000000',
+            'qr_colorLight' => get_post_meta( get_the_ID(), 'mx_scu_qr_colorLight', true ) ?: '#ffffff',
         ] );
-		 // 1) core QRCode.js
-        wp_enqueue_script(
-            'qrcodejs',
-            'https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js',
-            [],
-            '1.0.0',
-            true
-        );
-        wp_enqueue_script(
-            'qr-generator',
-            plugins_url( 'includes/js/qr-generator.js', __FILE__ ),
-            [ 'qrcodejs' ],
-            '1.2.0',
-            true
-        );
+		wp_enqueue_script(
+			'qrcode-svg',
+			'https://cdn.jsdelivr.net/npm/qrcode-svg@1.1.0/dist/qrcode.min.js',
+			[],
+			'1.1.0',
+			true
+		);
+
+		wp_enqueue_script(
+			'qr-generator',
+			plugins_url('includes/js/qr-generator.js', __FILE__),
+			['qrcode-svg'],
+			'1.2.0',
+			true
+		);
+
+
     }
 
     if ( did_action( 'admin_head' ) ) {
@@ -430,6 +485,40 @@ function mx_scu_search_products() {
     wp_send_json( $results );
 }
 
+add_action( 'wp_ajax_mx_scu_search_coupons', 'mx_scu_search_coupons' );
+function mx_scu_search_coupons() {
+    if ( ! current_user_can( 'manage_woocommerce' ) ) {
+        wp_send_json_error();
+    }
+
+    $term = isset( $_GET['q'] )
+        ? sanitize_text_field( wp_unslash( $_GET['q'] ) )
+        : '';
+    if ( ! $term ) {
+        wp_send_json( [] );
+    }
+
+    $results = [];
+    $coupons = get_posts( [
+        'post_type'      => 'shop_coupon',
+        'post_status'    => 'publish',
+        's'              => $term,
+        'posts_per_page' => 15,
+        'fields'         => 'ids',
+    ] );
+
+    foreach ( $coupons as $cid ) {
+        $code = get_the_title( $cid );
+        $results[] = [
+            'id'    => $code,                       
+            'label' => sprintf( '%s (ID:%d)', $code, $cid ),
+        ];
+    }
+
+    wp_send_json( $results );
+}
+
+
 add_action( 'save_post_scu_link', 'mx_scu_save_post' );
 function mx_scu_save_post( $post_id ) {
     if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
@@ -440,18 +529,22 @@ function mx_scu_save_post( $post_id ) {
         return;
     }
 
-    $ids            = isset( $_POST['mx_scu_products_ids'] )
-        ? array_map( 'intval', wp_unslash( $_POST['mx_scu_products_ids'] ) )
-        : [];
-    $qts            = isset( $_POST['mx_scu_products_qtys'] )
-        ? array_map( 'intval', wp_unslash( $_POST['mx_scu_products_qtys'] ) )
-        : [];
-    $coupon         = isset( $_POST['mx_scu_coupon'] )
-        ? sanitize_text_field( wp_unslash( $_POST['mx_scu_coupon'] ) )
-        : '';
-    $shortcode_text = isset( $_POST['mx_scu_shortcode_text'] )
-        ? sanitize_text_field( wp_unslash( $_POST['mx_scu_shortcode_text'] ) )
-        : '';
+    $ids            = isset( $_POST['mx_scu_products_ids'] )   ? array_map( 'intval', wp_unslash( $_POST['mx_scu_products_ids'] ) ) : [];
+    $qts            = isset( $_POST['mx_scu_products_qtys'] )  ? array_map( 'intval', wp_unslash( $_POST['mx_scu_products_qtys'] ) ) : [];
+    $coupon         = isset( $_POST['mx_scu_coupon'] )         ? sanitize_text_field( wp_unslash( $_POST['mx_scu_coupon'] ) ) : '';
+    $shortcode_text = isset( $_POST['mx_scu_shortcode_text'] ) ? sanitize_text_field( wp_unslash( $_POST['mx_scu_shortcode_text'] ) ) : '';
+		
+	$qr_size       = isset( $_POST['mx_scu_qr_size'] )
+                  ? intval(   wp_unslash( $_POST['mx_scu_qr_size'] ) )
+                  : 200;
+
+	$qr_colorDark  = isset( $_POST['mx_scu_qr_colorDark'] )
+					  ? sanitize_hex_color( wp_unslash( $_POST['mx_scu_qr_colorDark'] ) )
+					  : '#000000';
+
+	$qr_colorLight = isset( $_POST['mx_scu_qr_colorLight'] )
+					  ? sanitize_hex_color( wp_unslash( $_POST['mx_scu_qr_colorLight'] ) )
+					  : '#ffffff';
 
     $products = [];
     foreach ( $ids as $i => $id ) {
@@ -470,7 +563,12 @@ function mx_scu_save_post( $post_id ) {
         'products'       => $products,
         'coupon'         => $coupon,
         'shortcode_text' => $shortcode_text,
+		
     ] );
+	
+   update_post_meta( $post_id, 'mx_scu_qr_size',      $qr_size );
+   update_post_meta( $post_id, 'mx_scu_qr_colorDark', $qr_colorDark );
+  update_post_meta( $post_id, 'mx_scu_qr_colorLight',$qr_colorLight );
 
     if ( ! empty( $products ) ) {
         $parts = array_map(
@@ -530,20 +628,46 @@ function mx_scu_custom_columns( $column, $post_id ) {
     }
 }
 
-add_shortcode( 'scu_link', function( $atts ) {
-    $a = shortcode_atts( [
-        'id'   => '',
-        'text' => '',
-    ], $atts, 'scu_link' );
+add_shortcode('scu_link', function($atts) {
+    $a = shortcode_atts([
+        'id'    => '',
+        'text'  => '',
+        'class' => '',
+        'style' => '',
+        'target'=> '',
+        'rel'   => '',
+        'button'=> '',
+        'align' => '',
+        'aria-label' => '',
+        'title'      => '',
+    ], $atts, 'scu_link');
 
-    $url  = get_post_meta( intval( $a['id'] ), 'mx_scu_url', true );
-    $text = sanitize_text_field( $a['text'] );
-    if ( ! $url || ! $text ) {
-        return '';
+    $url  = get_post_meta(intval($a['id']), 'mx_scu_url', true);
+    $text = $a['text'] ? esc_html($a['text']) : esc_html__('Go to Checkout', 'shareable-checkout-urls');
+    if (!$url) return '';
+
+    $attrs = [];
+    if ($a['class'])       $attrs[] = 'class="'.esc_attr($a['class']).'"';
+    if ($a['style'])       $attrs[] = 'style="'.esc_attr($a['style']).'"';
+    if ($a['target'])      $attrs[] = 'target="'.esc_attr($a['target']).'"';
+    if ($a['rel'])         $attrs[] = 'rel="'.esc_attr($a['rel']).'"';
+    if ($a['aria-label'])  $attrs[] = 'aria-label="'.esc_attr($a['aria-label']).'"';
+    if ($a['title'])       $attrs[] = 'title="'.esc_attr($a['title']).'"';
+    if ($a['align'])       $attrs[] = 'style="text-align:'.esc_attr($a['align']).';' . ($a['style'] ?? '') . '"';
+
+    $attr_str = implode(' ', $attrs);
+
+    if (strtolower($a['button']) === 'yes') {
+        return sprintf(
+            '<a href="%s" %s><button type="button">%s</button></a>',
+            esc_url($url), $attr_str, $text
+        );
     }
-
-    return '<a href="' . esc_url( $url ) . '">' . esc_html( $text ) . '</a>';
-} );
+    return sprintf(
+        '<a href="%s" %s>%s</a>',
+        esc_url($url), $attr_str, $text
+    );
+});
 
 add_filter( 'woocommerce_get_sections_advanced', 'mx_scu_add_advanced_section' );
 function mx_scu_add_advanced_section( $sections ) {
@@ -580,6 +704,10 @@ function mx_scu_advanced_settings( $settings, $current_section ) {
     return $scu_settings;
 }
 
+/**
+ * Get the shareable‐checkout endpoint slug (default: checkout-link),
+ * but override with the WooCommerce setting if present.
+ */
 function mx_scu_get_endpoint_slug() {
     $opt = get_option( 'woocommerce_scu_endpoint_slug', '' );
     if ( $opt ) {
