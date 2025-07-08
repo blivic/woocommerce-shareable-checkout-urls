@@ -130,7 +130,7 @@ Here's a list of upcoming enhancements and features planned for future releases:
 * NEW: Switched to QRCodeSVG library for native vector output.
 * FIX: Preview and download logic improved for size accuracy.
 * FIX: Improved event handler logic prevents multiple PNG files from being downloaded due to duplicate event listeners.
-* 
+  
 ### 1.0.0 (04-07-2025)
 * initial release
 
