@@ -2,7 +2,7 @@ jQuery(function($){
   var ajaxUrl = mx_scu_data.ajax_url;
   var siteUrl = mx_scu_data.site_url;
   var postId  = mx_scu_data.post_id;
-  var slug = mx_scu_data.endpoint_slug;
+  var slug    = mx_scu_data.endpoint_slug;
 
   function showNotice($row, msg) {
     var $n = $row.find('.mx-scu-row-notice');
@@ -12,6 +12,7 @@ jQuery(function($){
     }
     $n.text(msg);
   }
+
   function clearNotice($row) {
     $row.find('.mx-scu-row-notice').remove();
   }
@@ -25,6 +26,8 @@ jQuery(function($){
     });
     var url = siteUrl + slug + '/?';
     if ( items.length ) url += 'products=' + items.join(',');
+
+    // *** read coupon from our Select2 ***
     var coupon = $('#mx-scu-coupon').val().trim();
     if ( coupon ) url += '&coupon=' + encodeURIComponent(coupon);
 
@@ -45,83 +48,82 @@ jQuery(function($){
   }
 
   function initAutocomplete($row){
-  var $input  = $row.find('.mx-scu-product-search');
-  var $hidden = $row.find('.mx-scu-product-id');
-  var $qty    = $row.find('.mx-scu-product-qty');
+    var $input  = $row.find('.mx-scu-product-search');
+    var $hidden = $row.find('.mx-scu-product-id');
+    var $qty    = $row.find('.mx-scu-product-qty');
+    var stock   = -1;
 
-  var stock   = -1;
-
-  $input.autocomplete({
-    source: function(request, response){
-      $.getJSON( ajaxUrl, {
-        action: 'mx_scu_search_products',
-        q:      request.term
-      }).done(function(data){
-        var mapped = $.map(data, function(item){
-          return {
-            label: item.text,
-            value: item.text,
-            id:    item.id,
-            stock: (typeof item.stock === 'number') ? item.stock : -1
-          };
+    $input.autocomplete({
+      source: function(request, response){
+        $.getJSON( ajaxUrl, {
+          action: 'mx_scu_search_products',
+          q:      request.term
+        }).done(function(data){
+          var mapped = $.map(data, function(item){
+            return {
+              label: item.text,
+              value: item.text,
+              id:    item.id,
+              stock: (typeof item.stock === 'number') ? item.stock : -1
+            };
+          });
+          response(mapped);
         });
-        response(mapped);
-      });
-    },
-    minLength: 2,
-    select: function(event, ui){
-      $input.val(ui.item.value);
-      $hidden.val(ui.item.id);
-      stock = (typeof ui.item.stock === 'number') ? ui.item.stock : -1;
+      },
+      minLength: 2,
+      select: function(event, ui){
+        $input.val(ui.item.value);
+        $hidden.val(ui.item.id);
+        stock = ui.item.stock;
 
-      if ( stock >= 0 ) {
-        $qty.attr('max', stock);
+        if ( stock >= 0 ) {
+          $qty.attr('max', stock);
+          clearNotice($row);
+        } else {
+          $qty.removeAttr('max');
+          clearNotice($row);
+        }
+
+        updateLink();
+        return false;
+      }
+    })
+    .autocomplete('instance')._renderItem = function(ul, item){
+      var badge = '';
+      if ( item.stock > 0 ) {
+        badge = ' <em style="color:#999">(in stock: ' + item.stock + ')</em>';
+      } else if ( item.stock < 0 ) {
+        badge = ' <em style="color:#999">(unlimited stock)</em>';
+      }
+      return $('<li>')
+        .append('<div>' + item.label + badge + '</div>')
+        .appendTo(ul);
+    };
+
+    $input.on('input', function(){
+      if ( ! $(this).val().trim() ) {
+        $hidden.val('');
+        stock = -1;
         clearNotice($row);
+        updateLink();
+      }
+    });
+
+    $qty.on('input change', function(){
+      var val = parseInt( $(this).val(), 10 ) || 0;
+      if ( stock >= 0 && val > stock ) {
+        showNotice($row, 'Only ' + stock + ' in stock.');
       } else {
-        $qty.removeAttr('max');
         clearNotice($row);
       }
-
       updateLink();
-      return false;
-    }
-  })
-  .autocomplete('instance')._renderItem = function(ul, item){
-    var badge = '';
-    if ( item.stock > 0 ) {
-      badge = ' <em style="color:#999">(in stock: ' + item.stock + ')</em>';
-    } else if ( item.stock < 0 ) {
-      badge = ' <em style="color:#999">(unlimited stock)</em>';
-    }
-    return $('<li>')
-      .append('<div>' + item.label + badge + '</div>')
-      .appendTo(ul);
-  };
+    });
+  }
 
-  $input.on('input', function(){
-    if ( ! $(this).val().trim() ) {
-      $hidden.val('');
-      stock = -1;
-      clearNotice($row);
-      updateLink();
-    }
-  });
-
-  $qty.on('input change', function(){
-    var val = parseInt( $(this).val(), 10 ) || 0;
-    if ( stock >= 0 && val > stock ) {
-      showNotice($row, 'Only ' + stock + ' in stock.');
-    } else {
-      clearNotice($row);
-    }
-    updateLink();
-  });
-}
 
   $('#mx-scu-products .mx-scu-product-row').each(function(){
     initAutocomplete($(this));
   });
-
   $('#mx-scu-products').sortable({
     handle: '.mx-scu-drag-handle',
     items: '.mx-scu-product-row',
@@ -129,7 +131,6 @@ jQuery(function($){
     placeholder: 'mx-scu-sortable-placeholder',
     update: updateLink
   });
-
   $('#mx-scu-add-product').on('click', function(e){
     e.preventDefault();
     var $row = $(`
@@ -145,7 +146,6 @@ jQuery(function($){
     initAutocomplete($row);
     updateLink();
   });
-
   $(document).on('click', '.mx-remove-product', function(e){
     e.preventDefault();
     if ($('#mx-scu-products .mx-scu-product-row').length > 1) {
@@ -154,35 +154,12 @@ jQuery(function($){
     }
   });
 
-  $('#mx-scu-coupon').on('input', updateLink);
-
-	$('#mx-scu-copy-url').on('click', function(e){
-	  e.preventDefault();
-	  var $btn = $(this);
-	  var url = $('#mx-scu-generated-url').val() || $('#mx-scu-generated-text').text();
-	  var tmp = document.createElement('textarea');
-	  tmp.value = url;
-	  document.body.appendChild(tmp);
-	  tmp.select();
-	  document.execCommand('copy');
-	  document.body.removeChild(tmp);
-
-	  // Feedback
-	  var orig = $btn.text();
-	  $btn.text('Copied!').prop('disabled', true);
-	  setTimeout(function(){
-		$btn.text(orig).prop('disabled', false);
-	  }, 2000);
-	});
-
-   $('#mx-scu-shortcode-text').on('input', updateShortcode);
-  $('#mx-scu-copy-shortcode').on('click', function(e){
+  $('#mx-scu-copy-url').on('click', function(e){
     e.preventDefault();
     var $btn = $(this);
-    var hidden = document.getElementById('mx-scu-generated-shortcode-text');
-    var text = hidden.textContent;
-    var tmp = document.createElement('textarea');
-    tmp.value = text;
+    var url  = $('#mx-scu-generated-url').val() || $('#mx-scu-generated-text').text();
+    var tmp  = document.createElement('textarea');
+    tmp.value = url;
     document.body.appendChild(tmp);
     tmp.select();
     document.execCommand('copy');
@@ -194,16 +171,97 @@ jQuery(function($){
     }, 2000);
   });
 
-  updateLink();
-  updateShortcode();
+  $('#mx-scu-shortcode-text').on('input', updateShortcode);
+  $('#mx-scu-copy-shortcode').on('click', function(e){
+    e.preventDefault();
+    var $btn  = $(this);
+    var text  = $('#mx-scu-generated-shortcode-text').text();
+    var tmp   = document.createElement('textarea');
+    tmp.value = text;
+    document.body.appendChild(tmp);
+    tmp.select();
+    document.execCommand('copy');
+    document.body.removeChild(tmp);
+    var orig = $btn.text();
+    $btn.text('Copied!').prop('disabled', true);
+    setTimeout(function(){
+      $btn.text(orig).prop('disabled', false);
+    }, 2000);
+  });
   
-initQRGenerator({
-  codeSelector:             '#mx-scu-generated-text',
-  qrContainerSelector:      '#mx-scu-qr-container',
-  snippetOutputSelector:    '#mx-scu-qr-embed-snippet',
-  snippetContainerSelector: '#mx-scu-qr-snippet-container',
-  outputTypeSelector:       '#mx-scu-qr-output-type',
-  postId:                   mx_scu_data.post_id
+function initCouponSearch() {
+  var $input = $('#mx-scu-coupon');
+  $input.autocomplete({
+    source: function(request, response) {
+      $.getJSON( ajaxUrl, {
+        action: 'mx_scu_search_coupons',
+        q:      request.term
+      }).done(function(data) {
+        response($.map(data, function(item){
+          return { label: item.label, value: item.id };
+        }));
+      });
+    },
+    minLength: 2,
+    select: function(event, ui){
+      $input.val(ui.item.value);
+      updateLink();
+      return false;
+    }
+  })
+  .autocomplete('instance')._renderItem = function(ul, item){
+    return $('<li>')
+      .append('<div>'+ item.label +'</div>')
+      .appendTo(ul);
+  };
+
+  $input.on('input', function(){
+    if ( ! $(this).val().trim() ) {
+      updateLink();
+    }
+  });
+}
+
+initCouponSearch();
+
+$('#mx-scu-qr-colorDark, #mx-scu-qr-colorLight').wpColorPicker({
+  change: function(event, ui) {
+    var input = this;
+    setTimeout(function(){
+      updateQRPreview();
+    }, 10);
+  },
+  clear: function() {
+    var def = this.id === 'mx-scu-qr-colorDark' ? mx_scu_data.qr_colorDark : mx_scu_data.qr_colorLight;
+    $(this).val(def);  
+    setTimeout(function(){
+      updateQRPreview();
+    }, 10);
+  }
 });
 
-});
+$('#mx-scu-qr-size').on('input change', updateQRPreview);
+
+updateQRPreview();
+
+
+function updateQRPreview(){
+  initQRGenerator({
+    codeSelector:             '#mx-scu-generated-text',
+    qrContainerSelector:      '#mx-scu-qr-container',
+    snippetOutputSelector:    '#mx-scu-qr-embed-snippet',
+    snippetContainerSelector: '#mx-scu-qr-snippet-container',
+    outputTypeSelector:       '#mx-scu-qr-output-type',
+    postId:                   mx_scu_data.post_id,
+    size:       parseInt($('#mx-scu-qr-size').val(), 10) || mx_scu_data.qr_size,
+    colorDark:  $('#mx-scu-qr-colorDark').val()  || mx_scu_data.qr_colorDark,
+    colorLight: $('#mx-scu-qr-colorLight').val() || mx_scu_data.qr_colorLight
+  });
+}
+
+
+  updateLink();
+  updateShortcode();
+  updateQRPreview();
+
+}); 
