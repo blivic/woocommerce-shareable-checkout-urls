@@ -125,8 +125,16 @@ Here's a list of upcoming enhancements and features planned for future releases:
 
 ## Changelog
 
+### 1.1.0 (08-07-2025)
+* NEW: Added a coupon search field in the builder metabox to replace the current textarea
+* NEW: Added settings for customizing QR code size & colors
+* NEW: Added true SVG QR code downloads (fully scalable, print-ready).
+* NEW: Switched to QRCodeSVG library for native vector output.
+* FIX: Preview and download logic improved for size accuracy.
+* FIX: Improved event handler logic prevents multiple PNG files from being downloaded due to duplicate event listeners.
+* 
 ### 1.0.0 (04-07-2025)
-- initial release
+* initial release
 
 
 
