@@ -18,7 +18,8 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
    - [Generated URL & Coupon](#generated-url--coupon)  
    - [Embedable Shortcode](#embedable-shortcode)  
    - [QR Code Generator](#qr-code-generator)  
-   - [Shortcode Output](#shortcode-output)  
+   - [Shortcode Output](#shortcode-output)
+   - [Custom promo message](#custom-message)
 5. [Endpoint Slug](#endpoint-slug)
 6.  [To Do](#to-do)
 7.  [Changelog](#changelog)
@@ -86,7 +87,8 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 ### Embedable Shortcode
 
 1. Under **Embedable Shortcode**, enter your **Link Text**.  
-2. The generated shortcode `[scu_link id="789" text="Buy Now"]` appears; click **Copy Shortcode**.  
+2. The generated shortcode `[scu_link id="789" text="Buy Now"]` appears; click **Copy Shortcode**.
+3. For advanced use, shortcode now supports args: text, class, style, target, rel, button, align, aria-label, title.  
 
 ---
 
@@ -96,7 +98,8 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 - In **Output mode**, choose:
   - **Data-URI Image**: inline `<img src="data:image/png…">`  
   - **Embed Snippet**: exact HTML in a textarea  
-  - **Download PNG**: saves `qr-code-{POST_ID}.png`  
+  - **Download PNG**: saves `qr-code-{POST_ID}.png`
+  - **Download SVG**: saves a high-quality, scalable .svg file `qr-code-{ID}.svg`  
 
 ---
 
@@ -106,6 +109,12 @@ Use the shortcode anywhere to render a link:
 ```php
 echo do_shortcode( '[scu_link id="789" text="Buy Now"]' );
 ```
+
+---
+
+### Custom message
+
+Show message on checkout (per URL), as a WooCommerce notice or inside a custom block (supports HTML)
 
 ---
 
@@ -149,11 +158,13 @@ Here's a list of upcoming enhancements and features planned for future releases:
   – Usage count is tracked and displayed in the SCU admin list.
   – Unlimited usage remains the default (when field is empty or zero).
 * Improved: Centralized validation logic for better reliability
+* New: Added optional shortcode args for advanced use: text, class, style, target, rel, button, align, aria-label, title.  
 * New: “Minimum Role to Access SCU” option in WooCommerce Advanced → Shareable URLs
 * New: mx_scu_current_user_has_access() enforces that setting across:
   – Admin menu, post list, meta-boxes, save_post, AJAX search endpoints, settings screen  
   – Shows a dismissible notice on SCU edit/add pages when access is denied  
   – Removes SCU menu for users below the selected role
+
 
 
 ### 1.1.0 (08-07-2025)
