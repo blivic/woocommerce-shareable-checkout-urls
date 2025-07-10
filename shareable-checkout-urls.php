@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Shareable Checkout URLs
  * Description:       Build, save & edit shareable checkout URLs (products + coupon) under Products.
- * Version:           1.1.0
+ * Version:           1.2.0
  * Author:            Media X
  * Author URI:        https://media-x.hr
  * Text Domain:       shareable-checkout-urls
@@ -54,7 +54,7 @@ add_filter(
     'mx_scu_add_settings_link'
 );
 function mx_scu_add_settings_link( $links ) {
-    $settings_url = admin_url( 'admin.php?page=wc-settings&tab=advanced&section=scu_endpoint' );
+    $settings_url = admin_url( 'admin.php?page=wc-settings&tab=advanced&section=scu_settings' );
     $settings_link = sprintf(
         '<a href="%1$s">%2$s</a>',
         esc_url( $settings_url ),
@@ -314,7 +314,51 @@ function mx_scu_builder_meta_box( $post ) {
 			<?php esc_html_e( 'Saves a high-quality, scalable .svg file named qr-code-{ID}.svg.', 'shareable-checkout-urls' ); ?>
 		</p>
 	</div>
+	
+	<div id="mx-scu-promo-message-builder">
+		<h2><?php esc_html_e( 'Promo Message (optional)', 'shareable-checkout-urls' ); ?></h2>
 
+		<?php
+		$promo_message = get_post_meta( $post->ID, 'mx_scu_promo_message', true );
+		$display_mode = get_post_meta( $post->ID, 'mx_scu_promo_display_mode', true );
+		if ( ! in_array( $display_mode, [ 'notice', 'custom' ], true ) ) {
+			$display_mode = 'notice'; // fallback
+		}
+
+		?>
+		<p>
+			<label for="mx-scu-promo-message-text">
+				<?php esc_html_e( 'This message will appear above the checkout form when this link is used. For now only on Classic checkout.', 'shareable-checkout-urls' ); ?>
+			</label>
+		</p>
+
+		<p>
+			<textarea
+				id="mx-scu-promo-message-text"
+				name="mx_scu_promo_message"
+				rows="4"
+				style="width:100%;"
+				placeholder="<?php esc_attr_e( 'You can enter basic HTML like <strong>, <em>, <a>…', 'shareable-checkout-urls' ); ?>"
+			><?php echo esc_textarea( $promo_message ); ?></textarea>
+		</p>
+
+		<p class="description" style="font-size:13px;">
+			<?php esc_html_e( 'Supports basic HTML formatting (e.g. <strong>, <em>, <h3>, <a href="">link</a>', 'shareable-checkout-urls' ); ?>
+		</p>
+
+		<p id="mx-scu-display-mode-wrap" style="<?php echo trim( $promo_message ) ? '' : 'display:none;'; ?>">
+			<label><strong><?php esc_html_e( 'Display Promo Message As:', 'shareable-checkout-urls' ); ?></strong></label><br>
+			<label>
+				<input type="radio" name="mx_scu_promo_display_mode" value="notice" <?php checked( $display_mode, 'notice' ); ?>>
+				<?php esc_html_e( 'WooCommerce Notice', 'shareable-checkout-urls' ); ?>
+			</label><br>
+			<label>
+				<input type="radio" name="mx_scu_promo_display_mode" value="custom" <?php checked( $display_mode, 'custom' ); ?>>
+				<?php esc_html_e( 'Custom Block (above notices)', 'shareable-checkout-urls' ); ?>
+			</label>
+		</p>
+
+	</div>
 
     <?php
 }
@@ -532,6 +576,14 @@ function mx_scu_save_post( $post_id ) {
     $ids            = isset( $_POST['mx_scu_products_ids'] )   ? array_map( 'intval', wp_unslash( $_POST['mx_scu_products_ids'] ) ) : [];
     $qts            = isset( $_POST['mx_scu_products_qtys'] )  ? array_map( 'intval', wp_unslash( $_POST['mx_scu_products_qtys'] ) ) : [];
     $coupon         = isset( $_POST['mx_scu_coupon'] )         ? sanitize_text_field( wp_unslash( $_POST['mx_scu_coupon'] ) ) : '';
+	$promo_message  = isset( $_POST['mx_scu_promo_message'] )  ? wp_kses_post( wp_unslash( $_POST['mx_scu_promo_message'] ) ) : '';
+	$display_mode = isset( $_POST['mx_scu_promo_display_mode'] )
+		? sanitize_text_field( wp_unslash( $_POST['mx_scu_promo_display_mode'] ) )
+		: 'notice';
+
+	if ( ! in_array( $display_mode, [ 'notice', 'custom' ], true ) ) {
+		$display_mode = 'notice'; // fallback
+	}
     $shortcode_text = isset( $_POST['mx_scu_shortcode_text'] ) ? sanitize_text_field( wp_unslash( $_POST['mx_scu_shortcode_text'] ) ) : '';
 		
 	$qr_size       = isset( $_POST['mx_scu_qr_size'] )
@@ -568,7 +620,9 @@ function mx_scu_save_post( $post_id ) {
 	
    update_post_meta( $post_id, 'mx_scu_qr_size',      $qr_size );
    update_post_meta( $post_id, 'mx_scu_qr_colorDark', $qr_colorDark );
-  update_post_meta( $post_id, 'mx_scu_qr_colorLight',$qr_colorLight );
+   update_post_meta( $post_id, 'mx_scu_qr_colorLight',$qr_colorLight );
+   update_post_meta( $post_id, 'mx_scu_promo_message', $promo_message );
+   update_post_meta( $post_id, 'mx_scu_promo_display_mode', $display_mode );
 
     if ( ! empty( $products ) ) {
         $parts = array_map(
@@ -599,6 +653,10 @@ function mx_scu_columns( $cols ) {
         'title'    => __( 'Name', 'shareable-checkout-urls' ),
         'products' => __( 'Products × Qty', 'shareable-checkout-urls' ),
         'coupon'   => __( 'Coupon', 'shareable-checkout-urls' ),
+		'uses'     => __( 'Usage', 'shareable-checkout-urls' ),
+		'orders'   => __( 'Orders', 'shareable-checkout-urls' ),
+		'conversion' => __( 'Conversion Rate', 'shareable-checkout-urls' ),
+        'revenue'  => __( 'Revenue', 'shareable-checkout-urls' ),
         'url'      => __( 'Checkout URL', 'shareable-checkout-urls' ),
     ];
 }
@@ -619,6 +677,28 @@ function mx_scu_custom_columns( $column, $post_id ) {
         case 'coupon':
             echo ! empty( $data['coupon'] ) ? esc_html( $data['coupon'] ) : '—';
             break;
+		case 'uses':
+			$count = get_post_meta( $post_id, 'mx_scu_uses', true );
+			echo $count ? intval( $count ) : '0';
+			break;
+		case 'orders':
+			echo intval( get_post_meta( $post_id, 'mx_scu_order_count', true ) );
+			break;
+
+		case 'revenue':
+			echo wc_price( get_post_meta( $post_id, 'mx_scu_order_total', true ) );
+			break;
+		case 'conversion':
+			$uses   = max( 1, (int) get_post_meta( $post_id, 'mx_scu_uses', true ) );
+			$orders = (int) get_post_meta( $post_id, 'mx_scu_order_count', true );
+
+			if ( $uses === 0 ) {
+				echo '—';
+			} else {
+				$rate = round( ( $orders / $uses ) * 100, 1 );
+				echo esc_html( $rate . '%' );
+			}
+			break;
         case 'url':
             $url = get_post_meta( $post_id, 'mx_scu_url', true );
             if ( $url ) {
@@ -627,6 +707,48 @@ function mx_scu_custom_columns( $column, $post_id ) {
             break;
     }
 }
+
+add_filter( 'manage_edit-scu_link_sortable_columns', function( $columns ) {
+    $columns['uses']       = 'mx_scu_uses';
+    $columns['orders']     = 'mx_scu_order_count';
+    $columns['revenue']    = 'mx_scu_order_total';
+    $columns['conversion'] = 'mx_scu_conversion_rate'; // Note: virtual, handled separately
+    return $columns;
+} );
+
+
+add_action( 'pre_get_posts', function( $query ) {
+    if ( ! is_admin() || ! $query->is_main_query() || $query->get('post_type') !== 'scu_link' ) {
+        return;
+    }
+
+    $orderby = $query->get( 'orderby' );
+
+    if ( $orderby === 'mx_scu_conversion_rate' ) {
+        // Custom SQL sort based on meta math
+        $query->set( 'meta_query', [
+            'relation' => 'AND',
+            'uses_clause' => [
+                'key'     => 'mx_scu_uses',
+                'type'    => 'NUMERIC',
+                'compare' => 'EXISTS',
+            ],
+            'orders_clause' => [
+                'key'     => 'mx_scu_order_count',
+                'type'    => 'NUMERIC',
+                'compare' => 'EXISTS',
+            ],
+        ] );
+        $query->set( 'orderby', [
+            'orders_clause' => 'DESC',
+            'uses_clause'   => 'ASC'
+        ] );
+    } elseif ( in_array( $orderby, [ 'mx_scu_uses', 'mx_scu_order_count', 'mx_scu_order_total' ], true ) ) {
+        $query->set( 'meta_key', $orderby );
+        $query->set( 'orderby', 'meta_value_num' );
+    }
+} );
+
 
 add_shortcode('scu_link', function($atts) {
     $a = shortcode_atts([
@@ -671,13 +793,13 @@ add_shortcode('scu_link', function($atts) {
 
 add_filter( 'woocommerce_get_sections_advanced', 'mx_scu_add_advanced_section' );
 function mx_scu_add_advanced_section( $sections ) {
-    $sections['scu_endpoint'] = __( 'Shareable URLs', 'shareable-checkout-urls' );
+    $sections['scu_settings'] = __( 'Shareable URLs', 'shareable-checkout-urls' );
     return $sections;
 }
 
 add_filter( 'woocommerce_get_settings_advanced', 'mx_scu_advanced_settings', 10, 2 );
 function mx_scu_advanced_settings( $settings, $current_section ) {
-    if ( 'scu_endpoint' !== $current_section ) {
+    if ( 'scu_settings' !== $current_section ) {
         return $settings;
     }
 
@@ -686,30 +808,262 @@ function mx_scu_advanced_settings( $settings, $current_section ) {
     $scu_settings[] = [
         'title' => __( 'Shareable URLs Settings', 'shareable-checkout-urls' ),
         'type'  => 'title',
-        'desc'  => __( 'Customize the endpoint slug used by the Shareable Checkout URLs plugin.', 'shareable-checkout-urls' ),
+        'desc'  => __( 'Customize the options used by the Shareable Checkout URLs plugin.', 'shareable-checkout-urls' ),
         'id'    => 'scu_endpoint_options',
     ];
 
     $scu_settings[] = [
-        'title'    => __( 'Endpoint Slug', 'shareable-checkout-urls' ),
-        'id'       => 'woocommerce_scu_endpoint_slug',
-        'type'     => 'text',
-        'desc'     => __( 'The URL path segment for shareable‐checkout links (e.g., <code>checkout-link</code>, <code>fast-checkout</code>).' , 'shareable-checkout-urls' ),
-        'default'  => 'checkout-link',
-        'autoload' => false,
-    ];
+		'title'    => __( 'Endpoint Slug', 'shareable-checkout-urls' ),
+		'id'       => 'scu_endpoint_slug',
+		'type'     => 'text',
+		'desc'     => __( 'The URL path segment for shareable‐checkout links (e.g., <code>checkout-link</code>, <code>fast-checkout</code>).' , 'shareable-checkout-urls' ),
+		'default'  => 'checkout-link',
+		'autoload' => false,
+	];
+
+	$scu_settings[] = [
+		'title'   => __( 'Enable Product Validation Caching', 'shareable-checkout-urls' ),
+		'id'      => 'scu_enable_cache',
+		'type'    => 'checkbox',
+		'default' => 'no',
+		'desc' => __( 'Improves performance by avoiding repeated validation for popular links. Cached results expire after 60 minutes and are also cleared automatically when a product is updated, unpublished, deleted, or its stock status changes.', 'shareable-checkout-urls' ),
+		'autoload' => false,
+	];
+	
+	$scu_settings[] = [
+		'type' => 'custom_button',
+		'id'   => 'scu_clear_cache_button',
+		'title'=> __( 'Clear Validation Cache', 'shareable-checkout-urls' ),
+		'desc' => __( 'Manually clears all cached product validation results for checkout links.', 'shareable-checkout-urls' ),
+		'custom_attributes' => [
+			'class' => 'button button-secondary',
+			'onclick' => "location.href='" . esc_url( admin_url( 'admin.php?scu_clear_cache=1' ) ) . "'",
+		]
+	];
+	
+	$scu_settings[] = [
+		'title'   => __( 'Enable Debug Mode', 'shareable-checkout-urls' ),
+		'id'      => 'scu_debug_mode',
+		'type'    => 'checkbox',
+		'default' => 'no',
+		'desc' => __( 'Logs product validation, cache hits/misses, applied coupons, and redirect URLs to debug.log. Helps diagnose checkout issues.', 'shareable-checkout-urls' ),
+		'autoload' => false,
+	];
+
+
 
     $scu_settings[] = [ 'type' => 'sectionend', 'id' => 'scu_endpoint_options' ];
 
     return $scu_settings;
 }
 
-/**
- * Get the shareable‐checkout endpoint slug (default: checkout-link),
- * but override with the WooCommerce setting if present.
- */
+add_action( 'woocommerce_before_checkout_form', 'mx_scu_show_promo_message', 5 );
+function mx_scu_show_promo_message() {
+    if ( ! is_checkout() || WC()->cart->is_empty() ) return;
+
+    $scu_id = WC()->session->get( 'mx_scu_link_id' );
+    if ( ! $scu_id ) return;
+
+    $message = get_post_meta( $scu_id, 'mx_scu_promo_message', true );
+    $mode    = get_post_meta( $scu_id, 'mx_scu_promo_display_mode', true ) ?: 'notice';
+
+    if ( ! $message ) return;
+
+    if ( $mode === 'custom' ) {
+        echo '<div class="mx-scu-promo-custom" style="margin-bottom:20px; border:1px solid #e1e1e1; background:#f9f9f9; padding:16px; border-radius:4px;">' . wp_kses_post( wpautop( $message ) ) . '</div>';
+    } else {
+        wc_add_notice( wp_kses_post( $message ), 'notice' );
+    }
+}
+
+add_action( 'wp_print_footer_scripts', function() {
+    if ( ! is_checkout() || is_admin() ) return;
+
+    $scu_id = WC()->session->get( 'mx_scu_link_id' );
+    if ( ! $scu_id ) return;
+
+    $message = get_post_meta( $scu_id, 'mx_scu_promo_message', true );
+    $mode    = get_post_meta( $scu_id, 'mx_scu_promo_display_mode', true );
+
+    if ( ! $message || $mode !== 'custom' ) return;
+    ?>
+    <script>
+    jQuery(function($) {
+        const promo = $('.mx-scu-promo-custom');
+        const notices = $('.woocommerce-notices-wrapper');
+
+        if (promo.length && notices.length) {
+            notices.first().before(promo);
+        } else if (promo.length) {
+            $('.woocommerce').prepend(promo);
+        }
+    });
+    </script>
+    <?php
+}, 100 );
+
+
+
+
+function mx_scu_validate_products( $product_string ) {
+    $use_cache  = 'yes' === get_option( 'scu_enable_cache', 'no' );
+    $cache_key  = 'checkout_link_products_' . md5( $product_string );
+
+    if ( $use_cache ) {
+        $cached_result = get_transient( $cache_key );
+        if ( false !== $cached_result ) {
+            if ( mx_scu_debug_enabled() ) {
+                error_log( "[SCU] Cache HIT: {$cache_key}" );
+            }
+            return $cached_result;
+        }
+        if ( mx_scu_debug_enabled() ) {
+            error_log( "[SCU] Cache MISS: {$cache_key}" );
+        }
+    }
+
+    $products       = array();
+    $product_pairs  = explode( ',', $product_string );
+
+    foreach ( $product_pairs as $pair ) {
+        list( $id, $qty ) = explode( ':', $pair . ':1' );
+        $id  = absint( $id );
+        $qty = absint( $qty );
+
+        if ( ! $id ) {
+            if ( mx_scu_debug_enabled() ) {
+                error_log( "[SCU] ❌ Skipped: empty or invalid product ID in pair '{$pair}'" );
+            }
+            continue;
+        }
+
+        $product   = wc_get_product( $id );
+        $is_valid  = $product && $product->is_purchasable();
+        $name      = $product ? $product->get_name() : '(not found)';
+
+        if ( mx_scu_debug_enabled() ) {
+            if ( $is_valid ) {
+                error_log( "[SCU] ✅ Valid product ID {$id} × {$qty} – {$name}" );
+            } else {
+                error_log( "[SCU] ❌ Skipped product ID {$id} × {$qty} – {$name}" );
+            }
+        }
+
+        $products[] = array(
+            'id'    => $id,
+            'qty'   => $qty ?: 1,
+            'valid' => $is_valid,
+        );
+    }
+
+    if ( $use_cache ) {
+        set_transient( $cache_key, $products, HOUR_IN_SECONDS );
+    }
+
+    return $products;
+}
+
+
+add_action( 'save_post_product', 'mx_scu_clear_product_cache' );
+add_action( 'deleted_post', 'mx_scu_clear_product_cache' );
+add_action( 'woocommerce_product_set_stock_status', 'mx_scu_clear_product_cache' );
+
+function mx_scu_clear_product_cache( $post_id ) {
+    global $wpdb;
+
+    $count1 = $wpdb->query(
+        "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_checkout_link_products_%'"
+    );
+    $count2 = $wpdb->query(
+        "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_checkout_link_products_%'"
+    );
+
+    $total = intval( $count1 ) + intval( $count2 );
+
+    if ( function_exists( 'mx_scu_debug_enabled' ) && mx_scu_debug_enabled() ) {
+        error_log( "[SCU] Cleared product validation cache: {$total} transients removed." );
+    }
+
+    return $total;
+}
+
+
+
+add_action( 'admin_init', 'mx_scu_maybe_clear_cache' );
+function mx_scu_maybe_clear_cache() {
+    if ( isset( $_GET['scu_clear_cache'] ) && current_user_can( 'manage_woocommerce' ) ) {
+        $count = mx_scu_clear_product_cache( 0 );
+
+        set_transient( 'mx_scu_cache_cleared_notice', $count, 30 );
+
+        wp_safe_redirect( remove_query_arg( 'scu_clear_cache' ) );
+        exit;
+    }
+}
+
+add_action( 'admin_notices', 'mx_scu_show_clear_cache_notice' );
+function mx_scu_show_clear_cache_notice() {
+    $count = get_transient( 'mx_scu_cache_cleared_notice' );
+    if ( $count !== false ) {
+        delete_transient( 'mx_scu_cache_cleared_notice' );
+
+        printf(
+            '<div class="notice notice-success is-dismissible"><p>%s</p></div>',
+            sprintf(
+                esc_html__( 'SCU product validation cache cleared. %d transients removed.', 'shareable-checkout-urls' ),
+                intval( $count )
+            )
+        );
+    }
+}
+
+
+
+add_action( 'woocommerce_admin_field_custom_button', 'mx_scu_render_custom_button_field' );
+function mx_scu_render_custom_button_field( $value ) {
+    $id    = esc_attr( $value['id'] );
+    $title = esc_html( $value['title'] );
+    $desc  = isset( $value['desc'] ) ? wp_kses_post( $value['desc'] ) : '';
+    $attrs = '';
+
+    if ( ! empty( $value['custom_attributes'] ) && is_array( $value['custom_attributes'] ) ) {
+        foreach ( $value['custom_attributes'] as $key => $val ) {
+            $attrs .= ' ' . esc_attr( $key ) . '="' . esc_attr( $val ) . '"';
+        }
+    }
+
+    echo '<tr valign="top">';
+    echo '<th scope="row" class="titledesc">';
+    echo "<label for='{$id}'>{$title}</label>";
+    echo '</th><td class="forminp">';
+    echo "<button id='{$id}'{$attrs}>{$title}</button>";
+    if ( $desc ) {
+        echo "<p class='description'>{$desc}</p>";
+    }
+    echo '</td></tr>';
+}
+
+add_action( 'admin_footer', function() {
+    if ( isset( $_GET['tab'], $_GET['section'] ) && $_GET['tab'] === 'advanced' && $_GET['section'] === 'scu_settings' ) {
+        ?>
+        <script>
+        jQuery(function($) {
+            function toggleCacheButton() {
+                const isChecked = $('#scu_enable_cache').is(':checked');
+                $('#scu_clear_cache_button').closest('tr').toggle(isChecked);
+            }
+
+            toggleCacheButton();
+
+            $('#scu_enable_cache').on('change', toggleCacheButton);
+        });
+        </script>
+        <?php
+    }
+} );
+
 function mx_scu_get_endpoint_slug() {
-    $opt = get_option( 'woocommerce_scu_endpoint_slug', '' );
+    $opt = get_option( 'scu_endpoint_slug', '' );
     if ( $opt ) {
         return sanitize_title( $opt );
     }
@@ -733,35 +1087,122 @@ add_action( 'init', function() {
 register_activation_hook( __FILE__, 'mx_scu_flush_rewrites' );
 add_action( 'update_option_woocommerce_scu_endpoint_slug', 'mx_scu_flush_rewrites', 10, 2 );
 function mx_scu_flush_rewrites() {
-    // re-register our rule so WP knows about it during the flush
+
     $slug = sanitize_title( mx_scu_get_endpoint_slug() );
     add_rewrite_rule( '^' . preg_quote( $slug, '/' ) . '/?$', 'index.php?scu=1', 'top' );
     flush_rewrite_rules();
 }
 
 add_action( 'template_redirect', function() {
-    if ( intval( get_query_var( 'scu' ) ) !== 1 ) {
+	if ( intval( get_query_var( 'scu' ) ) !== 1 ) {
+		return;
+	}
+
+	if ( empty( $_GET['products'] ) ) {
+		wp_die( __( 'No products specified.', 'shareable-checkout-urls' ) );
+	}
+
+	WC()->cart->empty_cart( true );
+
+	$raw_string = sanitize_text_field( wp_unslash( $_GET['products'] ) );
+	$validated  = mx_scu_validate_products( $raw_string );
+
+	foreach ( $validated as $entry ) {
+		if ( $entry['valid'] ) {
+			WC()->cart->add_to_cart( $entry['id'], $entry['qty'] );
+		}
+	}
+
+	$scu_id = 0;
+
+	$full_url = home_url( $_SERVER['REQUEST_URI'] );
+	$scu_posts = get_posts([
+		'post_type'   => 'scu_link',
+		'numberposts' => 1,
+		'meta_query'  => [
+			[
+				'key'     => 'mx_scu_url',
+				'value'   => $full_url,
+				'compare' => 'LIKE'
+			]
+		]
+	]);
+
+	if ( $scu_posts ) {
+		$scu_id = (int) $scu_posts[0]->ID;
+
+		$count = (int) get_post_meta( $scu_id, 'mx_scu_uses', true );
+		update_post_meta( $scu_id, 'mx_scu_uses', $count + 1 );
+
+		WC()->session->set( 'mx_scu_link_id', $scu_id );
+
+		if ( mx_scu_debug_enabled() ) {
+			error_log( "[SCU] Usage +1 for SCU link ID #{$scu_id}" );
+		}
+	}
+
+	if ( $scu_id ) {
+		WC()->session->set( 'mx_scu_cart_scu_id', $scu_id );
+	}
+
+	if ( ! empty( $_GET['coupon'] ) ) {
+		$coupon = sanitize_text_field( wp_unslash( $_GET['coupon'] ) );
+		WC()->cart->apply_coupon( $coupon );
+
+		if ( mx_scu_debug_enabled() ) {
+			error_log( "[SCU] Applied coupon: {$coupon}" );
+		}
+	}
+
+	if ( mx_scu_debug_enabled() ) {
+		error_log( '[SCU] Redirecting to: ' . wc_get_checkout_url() );
+	}
+
+	wp_safe_redirect( wc_get_checkout_url() );
+	exit;
+} );
+
+
+add_action( 'woocommerce_checkout_create_order', function( $order, $data ) {
+    $scu_id = WC()->session->get( 'mx_scu_link_id' );
+    if ( $scu_id ) {
+        $order->update_meta_data( '_mx_scu_link_id', $scu_id );
+    }
+}, 10, 2 );
+
+
+function mx_scu_debug_enabled() {
+    return 'yes' === get_option( 'scu_debug_mode', 'no' );
+}
+
+add_action( 'woocommerce_order_status_completed', 'mx_scu_log_conversion', 20, 1 );
+function mx_scu_log_conversion( $order_id ) {
+    $order = wc_get_order( $order_id );
+    if ( ! $order || $order->get_status() !== 'completed' ) {
         return;
     }
 
-    if ( empty( $_GET['products'] ) ) {
-        wp_die( __( 'No products specified.', 'shareable-checkout-urls' ) );
+    $scu_id = $order->get_meta( '_mx_scu_link_id' ); 
+    if ( ! $scu_id ) {
+        return;
     }
 
-    WC()->cart->empty_cart( true );
-
-    $pairs = explode( ',', sanitize_text_field( wp_unslash( $_GET['products'] ) ) );
-    foreach ( $pairs as $pair ) {
-        list( $id, $qty ) = array_pad( explode( ':', $pair ), 2, 1 );
-        if ( $prod = wc_get_product( intval( $id ) ) ) {
-            WC()->cart->add_to_cart( $prod->get_id(), intval( $qty ) );
-        }
+    if ( $order->get_meta( '_mx_scu_tracked' ) ) {
+        return;
     }
 
-    if ( ! empty( $_GET['coupon'] ) ) {
-        WC()->cart->apply_coupon( sanitize_text_field( wp_unslash( $_GET['coupon'] ) ) );
-    }
+    $total = $order->get_total();
 
-    wp_safe_redirect( wc_get_checkout_url() );
-    exit;
-} );
+    $count = (int) get_post_meta( $scu_id, 'mx_scu_order_count', true );
+    update_post_meta( $scu_id, 'mx_scu_order_count', $count + 1 );
+
+    $revenue = (float) get_post_meta( $scu_id, 'mx_scu_order_total', true );
+    update_post_meta( $scu_id, 'mx_scu_order_total', $revenue + $total );
+
+    $order->update_meta_data( '_mx_scu_tracked', 1 );
+    $order->save();
+
+    if ( mx_scu_debug_enabled() ) {
+        error_log( "[SCU] ✅ Tracked order #{$order_id} for SCU #{$scu_id}, revenue €{$total}" );
+    }
+}
