@@ -20,6 +20,7 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
    - [QR Code Generator](#qr-code-generator)  
    - [Shortcode Output](#shortcode-output)
    - [Custom promo message](#custom-message)
+   - [Usage tracking](#usage-tracking)
 5. [General settings](#general-settings)
 6.  [To Do](#to-do)
 7.  [Changelog](#changelog)
@@ -38,8 +39,6 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 - Sortable admin columns: Usage, Orders, Conversion Rate, Revenue
 - Debug Mode: logs cache hits, validation, coupons, and redirects to debug.log
 - Custom promo message on checkout: WooCommerce notice or custom block (supports HTML)
-- Minimum Role to Access SCU: restrict SCU features by user role
-
 
 
 ---
@@ -117,6 +116,16 @@ echo do_shortcode( '[scu_link id="789" text="Buy Now"]' );
 Show message on checkout (per URL), as a WooCommerce notice or inside a custom block (supports HTML)
 
 ---
+
+### Usage tracking
+
+Usage tracking & analytics: link usage, orders, conversion rate, revenue per link
+Sortable admin columns: Usage, Orders, Conversion Rate, Revenue
+
+![Usage tracking](https://media-x.hr/wp-content/uploads/2025/07/share02.jpg)
+
+---
+
 
 ## General settings
 
