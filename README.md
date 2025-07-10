@@ -93,7 +93,8 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 
 ### QR Code Generator
 
-- A QR code of the checkout URL renders automatically.  
+- A QR code of the checkout URL renders automatically.
+- Change QR code size and Light & Dark color of the code
 - In **Output mode**, choose:
   - **Data-URI Image**: inline `<img src="data:image/png…">`  
   - **Embed Snippet**: exact HTML in a textarea  
@@ -121,6 +122,11 @@ Show message on checkout (per URL), as a WooCommerce notice or inside a custom b
 
 By default, shareable URLs use the static slug `checkout-link`.  Until the endpoint becomes dynamic in core, this slug will be used.
 To customize, go to **WooCommerce → Settings → Advanced → Shareable URLs → Endpoint Slug**.
+
+You can enable Product Validation Caching which should improve performance on busy sites by avoiding repeated validation for popular links. Cached results expire after 60 minutes and are also cleared automatically when a product is updated, unpublished, deleted, or its stock status changes.
+You can flusg the cache (transients) manually by clicking the Clear Validation Cache button.
+
+If you need to diagnose checkout issues, enable Debug Mode which logs product validation, cache hits/misses, applied coupons, and redirect URLs to debug.log.
 
 ![Endpoint Slug Settings](https://media-x.hr/wp-content/uploads/2025/07/share03.jpg)
 
