@@ -156,7 +156,7 @@ Here's a list of upcoming enhancements and features planned for future releases:
 
 ## Changelog
 
-### = 1.2 =
+### 1.2.0
 * New: Optional product validation caching (60 min, auto-cleared on product updates)
 * New: "Clear Validation Cache" button in settings
 * New: Tracks link usage, calculates conversion rate and revenue per SCU link
