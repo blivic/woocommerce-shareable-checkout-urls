@@ -38,7 +38,7 @@
   border: 2px dashed #ccc;
 }
 
-#mx-scu-shortcode-builder, #mx-scu-builder, #mx-scu-qr-builder {
+#mx-scu-shortcode-builder, #mx-scu-builder, #mx-scu-qr-builder, #mx-scu-promo-message-builder {
   background: #fbfbfb;
   border: 1px solid #e1e1e1;
   padding: 16px;
@@ -46,7 +46,7 @@
   margin-top: 24px;
 }
 
-#mx-scu-shortcode-builder h2, div#mx-scu-qr-builder h2 {
+#mx-scu-shortcode-builder h2, div#mx-scu-qr-builder h2, #mx-scu-promo-message-builder h2 {
   margin: 0 0 12px;
   padding:0;
   font-weight: 600;
