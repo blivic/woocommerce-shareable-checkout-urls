@@ -28,18 +28,18 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 
 ## Features
 
-- **Private CPT under Products for managing shareable links
-- **Drag-and-drop product selection with AJAX search and stock badges
-- **Coupon code support
-- **One-click copy of generated checkout URL and shortcode
-- **Embedable QR code: Data-URI, HTML snippet or PNG download
-- **Optional product validation caching (60 min, auto-cleared on updates)
-- **Usage tracking & analytics: link usage, orders, conversion rate, revenue per link
-- **Sortable admin columns: Usage, Orders, Conversion Rate, Revenue
-- **Debug Mode: logs cache hits, validation, coupons, and redirects to debug.log
-- **Custom promo message on checkout: WooCommerce notice or custom block (supports HTML)
-- **Usage limit per link: set max uses, auto-disable on expiry with visitor notice
-- **Minimum Role to Access SCU: restrict SCU features by user role
+- Private CPT under Products for managing shareable links
+- Drag-and-drop product selection with AJAX search and stock badges
+- Coupon code support
+- One-click copy of generated checkout URL and shortcode
+- Embedable QR code: Data-URI, HTML snippet or PNG download
+- Optional product validation caching (60 min, auto-cleared on updates)
+- Usage tracking & analytics: link usage, orders, conversion rate, revenue per link
+- Sortable admin columns: Usage, Orders, Conversion Rate, Revenue
+- Debug Mode: logs cache hits, validation, coupons, and redirects to debug.log
+- Custom promo message on checkout: WooCommerce notice or custom block (supports HTML)
+- Usage limit per link: set max uses, auto-disable on expiry with visitor notice
+- Minimum Role to Access SCU: restrict SCU features by user role
 
 
 
