@@ -20,7 +20,7 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
    - [QR Code Generator](#qr-code-generator)  
    - [Shortcode Output](#shortcode-output)
    - [Custom promo message](#custom-message)
-5. [Endpoint Slug](#endpoint-slug)
+5. [General settings](#general-settings)
 6.  [To Do](#to-do)
 7.  [Changelog](#changelog)
 
@@ -38,7 +38,6 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 - Sortable admin columns: Usage, Orders, Conversion Rate, Revenue
 - Debug Mode: logs cache hits, validation, coupons, and redirects to debug.log
 - Custom promo message on checkout: WooCommerce notice or custom block (supports HTML)
-- Usage limit per link: set max uses, auto-disable on expiry with visitor notice
 - Minimum Role to Access SCU: restrict SCU features by user role
 
 
@@ -69,7 +68,7 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 2. In the **Build Shareable URL** metabox, search for products by name (with stock info), set quantities, and drag to reorder.  
 3. (Optional) Enter a **Coupon code**.
 
-![Edit Shareable URL Options](https://play.media-x.hr/wp-content/uploads/2025/07/share01.jpg)
+![Edit Shareable URL Options](https://media-x.hr/wp-content/uploads/2025/07/share01.jpg)
 
 
 ---
@@ -118,12 +117,12 @@ Show message on checkout (per URL), as a WooCommerce notice or inside a custom b
 
 ---
 
-## Endpoint Slug
+## General settings
 
 By default, shareable URLs use the static slug `checkout-link`.  Until the endpoint becomes dynamic in core, this slug will be used.
 To customize, go to **WooCommerce → Settings → Advanced → Shareable URLs → Endpoint Slug**.
 
-![Endpoint Slug Settings](https://media-x.hr/wp-content/uploads/2025/07/Edit-Shareable-URL-endpoint.jpg)
+![Endpoint Slug Settings](https://media-x.hr/wp-content/uploads/2025/07/share03.jpg)
 
 ---
 
@@ -152,18 +151,8 @@ Here's a list of upcoming enhancements and features planned for future releases:
   – Users can choose between showing message as a WooCommerce notice or a custom block.
   – Promo message supports basic HTML formatting (e.g. `<strong>`, `<em>`, `<a href="">`).
   – Custom block is automatically moved above all WooCommerce notices for better visibility.
-* New: Usage limit feature for Shareable Checkout URLs. Admins can now set a maximum allowed uses per link. Once the limit is reached:
-  – The link is automatically set to draft (disabled).
-  – Visitors see a "This checkout link is no longer available." message when accessing expired links.
-  – Usage count is tracked and displayed in the SCU admin list.
-  – Unlimited usage remains the default (when field is empty or zero).
 * Improved: Centralized validation logic for better reliability
 * New: Added optional shortcode args for advanced use: text, class, style, target, rel, button, align, aria-label, title.  
-* New: “Minimum Role to Access SCU” option in WooCommerce Advanced → Shareable URLs
-* New: mx_scu_current_user_has_access() enforces that setting across:
-  – Admin menu, post list, meta-boxes, save_post, AJAX search endpoints, settings screen  
-  – Shows a dismissible notice on SCU edit/add pages when access is denied  
-  – Removes SCU menu for users below the selected role
 
 
 
