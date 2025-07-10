@@ -119,8 +119,8 @@ Show message on checkout (per URL), as a WooCommerce notice or inside a custom b
 
 ### Usage tracking
 
-Usage tracking & analytics: link usage, orders, conversion rate, revenue per link
-Sortable admin columns: Usage, Orders, Conversion Rate, Revenue
+- Usage tracking & analytics: link usage, orders, conversion rate, revenue per link
+- Sortable admin columns: Usage, Orders, Conversion Rate, Revenue
 
 ![Usage tracking](https://media-x.hr/wp-content/uploads/2025/07/share02.jpg)
 
