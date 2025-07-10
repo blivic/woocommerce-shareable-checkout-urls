@@ -188,7 +188,7 @@ jQuery(function($){
       $btn.text(orig).prop('disabled', false);
     }, 2000);
   });
-  
+
 function initCouponSearch() {
   var $input = $('#mx-scu-coupon');
   $input.autocomplete({
@@ -233,7 +233,7 @@ $('#mx-scu-qr-colorDark, #mx-scu-qr-colorLight').wpColorPicker({
   },
   clear: function() {
     var def = this.id === 'mx-scu-qr-colorDark' ? mx_scu_data.qr_colorDark : mx_scu_data.qr_colorLight;
-    $(this).val(def);  
+    $(this).val(def); 
     setTimeout(function(){
       updateQRPreview();
     }, 10);
@@ -243,7 +243,6 @@ $('#mx-scu-qr-colorDark, #mx-scu-qr-colorLight').wpColorPicker({
 $('#mx-scu-qr-size').on('input change', updateQRPreview);
 
 updateQRPreview();
-
 
 function updateQRPreview(){
   initQRGenerator({
@@ -263,5 +262,19 @@ function updateQRPreview(){
   updateLink();
   updateShortcode();
   updateQRPreview();
+  
+  const $promoMessage = $('#mx-scu-promo-message-text');
+  const $displayModeWrap = $('#mx-scu-display-mode-wrap');
+
+  if ($promoMessage.length && $displayModeWrap.length) {
+    function togglePromoDisplayMode() {
+      const hasContent = $promoMessage.val().trim().length > 0;
+      $displayModeWrap.toggle(hasContent);
+    }
+
+    $promoMessage.on('input', togglePromoDisplayMode);
+    togglePromoDisplayMode();
+  }
+
 
 }); 
