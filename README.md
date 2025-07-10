@@ -68,7 +68,8 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 2. In the **Build Shareable URL** metabox, search for products by name (with stock info), set quantities, and drag to reorder.  
 3. (Optional) Enter a **Coupon code**.
 
-![Edit Shareable URL Options](https://media-x.hr/wp-content/uploads/2025/07/Edit-Shareable-URL.jpg](https://play.media-x.hr/wp-content/uploads/2025/07/share01.jpg)
+![Edit Shareable URL Options](https://play.media-x.hr/wp-content/uploads/2025/07/share01.jpg)
+
 
 ---
 
