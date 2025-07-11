@@ -20,6 +20,7 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
    - [QR Code Generator](#qr-code-generator)  
    - [Shortcode Output](#shortcode-output)
    - [Custom promo message](#custom-message)
+   - [Usage limit](#usage-limit)
    - [Usage tracking](#usage-tracking)
    - [UTM & Pixel tracking tracking](#utm-tracking)
 5. [General settings](#general-settings)
@@ -133,6 +134,16 @@ Show message on checkout (per URL), as a WooCommerce notice or inside a custom b
 
 ---
 
+### Usage limit
+
+- Admins can now set a maximum allowed uses per link. Once the limit is reached:<br/>
+  – The link is automatically set to draft (disabled).<br/>
+  – Visitors see a "This checkout link is no longer available." message when accessing expired links.<br/>
+  – Usage count is tracked and displayed in the SCU admin list.<br/>
+  – Unlimited usage remains the default (when field is empty or zero).
+
+---
+
 ### Usage tracking
 
 - Usage tracking & analytics: link usage, orders, conversion rate, revenue per link
@@ -147,6 +158,7 @@ Show message on checkout (per URL), as a WooCommerce notice or inside a custom b
 - If activated and set in Global settings, you can use global defaults FOR utm tracking, use custom UTM/pixel for this link or disable UTM tracking completely
 - NOTE: When UTM & Pixel Tracking IS enabled, your shareable URLs remain free of any query strings – default UTM tags and your Meta Pixel ID will only be appended at checkout (for analytics)
 
+---
 
 ## General settings
 
@@ -158,7 +170,14 @@ You can flusg the cache (transients) manually by clicking the Clear Validation C
 
 If you need to diagnose checkout issues, enable Debug Mode which logs product validation, cache hits/misses, applied coupons, and redirect URLs to debug.log.
 
-![Endpoint Slug Settings](https://media-x.hr/wp-content/uploads/2025/07/share03.jpg)
+Minimum Role to Access SCU” option in WooCommerce Advanced → Shareable URLs<br/>
+mx_scu_current_user_has_access() enforces that setting across:<br/>
+  – Admin menu, post list, meta-boxes, save_post, AJAX search endpoints, settings screen  <br/>
+  – Shows a dismissible notice on SCU edit/add pages when access is denied  <br/>
+  – Removes SCU menu for users below the selected role
+
+
+![General Settings](https://media-x.hr/wp-content/uploads/2025/07/share03.jpg)
 
 ---
 
