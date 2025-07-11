@@ -173,9 +173,9 @@ Here's a list of upcoming enhancements and features planned for future releases:
 * New: Tracks link usage, calculates conversion rate and revenue per SCU link
 * New: Added sortable admin columns: Usage, Orders, Conversion Rate, Revenue
 * New: Debug Mode logs cache hits, validation results, coupons, and redirects to debug.log
-* New: Added support for displaying a custom promo message on the checkout page when a shareable URL is used.
-  – Users can choose between showing message as a WooCommerce notice or a custom block.
-  – Promo message supports basic HTML formatting (e.g. `<strong>`, `<em>`, `<a href="">`).
+* New: Added support for displaying a custom promo message on the checkout page when a shareable URL is used.<br/>
+  – Users can choose between showing message as a WooCommerce notice or a custom block.<br/>
+  – Promo message supports basic HTML formatting (e.g. `<strong>`, `<em>`, `<a href="">`).<br/>
   – Custom block is automatically moved above all WooCommerce notices for better visibility.
 * Added: Usage limit feature for Shareable Checkout URLs. Admins can now set a maximum allowed uses per link. Once the limit is reached:
   – The link is automatically set to draft (disabled).
