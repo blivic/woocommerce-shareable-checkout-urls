@@ -21,6 +21,7 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
    - [Shortcode Output](#shortcode-output)
    - [Custom promo message](#custom-message)
    - [Usage tracking](#usage-tracking)
+   - [UTM & Pixel tracking tracking](#utm-tracking)
 5. [General settings](#general-settings)
 6.  [To Do](#to-do)
 7.  [Changelog](#changelog)
@@ -140,6 +141,11 @@ Show message on checkout (per URL), as a WooCommerce notice or inside a custom b
 ![Usage tracking](https://media-x.hr/wp-content/uploads/2025/07/share02.jpg)
 
 ---
+
+### UTM tracking
+
+- If activated and set in Global settings, you can use global defaults FOR utm tracking, use custom UTM/pixel for this link or disable UTM tracking completely
+- NOTE: When UTM & Pixel Tracking IS enabled, your shareable URLs remain free of any query strings – default UTM tags and your Meta Pixel ID will only be appended at checkout (for analytics)
 
 
 ## General settings
