@@ -158,12 +158,12 @@ Here's a list of upcoming enhancements and features planned for future releases:
 
 = 1.3 =
 * New: Modular file structure
-* UTM & Pixel Tracking
-  – Clean-URL tracking – UTM tags don't bloat the shareable link; appended only on redirect.
-  – Meta-pixel support – Specify a Pixel ID globally or per-link; fires client-side from session.
+* UTM & Pixel Tracking<br/>
+  – Clean-URL tracking – UTM tags don't bloat the shareable link; appended only on redirect.<br/>
+  – Meta-pixel support – Specify a Pixel ID globally or per-link; fires client-side from session.<br/>
   – Granular control – New “Global / Custom / None” toggle under each link + master “Enable Tracking” switch in Woo → Advanced.
-* New: REST API endpoints under `/wp-json/scu/v1/links`  
-  – CRUD: Manage shareable-checkout links via REST endpoints
+* New: REST API endpoints under `/wp-json/scu/v1/links`  <br/>
+  – CRUD: Manage shareable-checkout links via REST endpoints<br/>
   – All routes check against the “Minimum Role to Access SCU” setting via `mx_scu_current_user_has_access()`.
 * Fix: General bug-fixes & cleanup
 
@@ -177,16 +177,16 @@ Here's a list of upcoming enhancements and features planned for future releases:
   – Users can choose between showing message as a WooCommerce notice or a custom block.<br/>
   – Promo message supports basic HTML formatting (e.g. `<strong>`, `<em>`, `<a href="">`).<br/>
   – Custom block is automatically moved above all WooCommerce notices for better visibility.
-* Added: Usage limit feature for Shareable Checkout URLs. Admins can now set a maximum allowed uses per link. Once the limit is reached:
-  – The link is automatically set to draft (disabled).
-  – Visitors see a "This checkout link is no longer available." message when accessing expired links.
-  – Usage count is tracked and displayed in the SCU admin list.
+* Added: Usage limit feature for Shareable Checkout URLs. Admins can now set a maximum allowed uses per link. Once the limit is reached:<br/>
+  – The link is automatically set to draft (disabled).<br/>
+  – Visitors see a "This checkout link is no longer available." message when accessing expired links.<br/>
+  – Usage count is tracked and displayed in the SCU admin list.<br/>
   – Unlimited usage remains the default (when field is empty or zero).
 * Improved: Centralized validation logic for better reliability
 * New: “Minimum Role to Access SCU” option in WooCommerce Advanced → Shareable URLs
-* New: mx_scu_current_user_has_access() enforces that setting across:
-  – Admin menu, post list, meta-boxes, save_post, AJAX search endpoints, settings screen  
-  – Shows a dismissible notice on SCU edit/add pages when access is denied  
+* New: mx_scu_current_user_has_access() enforces that setting across:<br/>
+  – Admin menu, post list, meta-boxes, save_post, AJAX search endpoints, settings screen  <br/>
+  – Shows a dismissible notice on SCU edit/add pages when access is denied  <br/>
   – Removes SCU menu for users below the selected role
 
 
