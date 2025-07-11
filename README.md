@@ -29,16 +29,31 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 
 ## Features
 
-- Private CPT under Products for managing shareable links
-- Drag-and-drop product selection with AJAX search and stock badges
-- Coupon code support
-- One-click copy of generated checkout URL and shortcode
-- Embedable QR code: Data-URI, HTML snippet or PNG download
-- Optional product validation caching (60 min, auto-cleared on updates)
-- Usage tracking & analytics: link usage, orders, conversion rate, revenue per link
-- Sortable admin columns: Usage, Orders, Conversion Rate, Revenue
-- Debug Mode: logs cache hits, validation, coupons, and redirects to debug.log
-- Custom promo message on checkout: WooCommerce notice or custom block (supports HTML)
+- Private CPT under Products for managing shareable links  
+- Drag-and-drop product selection with AJAX search and stock badges  
+- Coupon code support  
+- One-click copy of generated checkout URL and shortcode  
+- Embeddable QR Code Generator  </br>
+  - Adjust size and light/dark colors  </br>
+  - Output modes: Data-URI image, embed HTML snippet, PNG download, true SVG download (print-ready)  
+- Optional product validation caching (60 min; auto-cleared on updates)  
+- “Clear Validation Cache” button in settings  
+- Usage tracking & analytics: link usage, orders, conversion rate, and revenue per link  
+- Sortable admin columns: Usage, Orders, Conversion Rate, Revenue  
+- Debug Mode: logs cache hits, validation results, applied coupons, and redirects to `debug.log`  
+- Custom promo message on checkout: WooCommerce notice or custom block (supports HTML)  
+- Usage Limits: set a maximum number of uses per link; links auto-draft when expired  
+- Modular file structure for easier maintenance and scalability  
+- UTM & Pixel Tracking  </br>
+  - Clean-URL tracking: UTM tags appended only on redirect  </br>
+  - Meta-pixel support: specify a Pixel ID globally or per-link; fires client-side  </br>
+  - Granular control: per-link “Global / Custom / None” toggle; master “Enable Tracking” switch in Woo → Advanced  
+- REST API endpoints under `/wp-json/scu/v1/links`  </br>
+  - CRUD operations for shareable-checkout links  </br>
+  - All routes respect the “Minimum Role to Access SCU” setting via `mx_scu_current_user_has_access()`  
+- Coupon Search Field in Builder Metabox (replaces textarea)  
+- Embedable Shortcodes with advanced attributes: `text`, `class`, `style`, `target`, `rel`, `button`, `align`, `aria-label`, `title`  
+
 
 
 ---
@@ -146,10 +161,6 @@ If you need to diagnose checkout issues, enable Debug Mode which logs product va
 Here's a list of upcoming enhancements and features planned for future releases:
 
 - Ensure the compatibility with dynamic endpoint slug (If/when the option gets into WooCommerce core)
-- Enhance shortcode attributes for advanced styling and behavior
-- Optional product validation caching
-- Track link usage, order conversions, and revenue per SCU link
-- Debug Mode
 - Add localization and translation support
 
 ---
