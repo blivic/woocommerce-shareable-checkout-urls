@@ -16,9 +16,9 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 4. [Usage](#usage)  
    - [Builder Metabox](#builder-metabox)  
    - [Generated URL & Coupon](#generated-url--coupon)  
-   - [Embedable Shortcode](#embedable-shortcode)  
-   - [QR Code Generator](#qr-code-generator)  
+   - [Embedable Shortcode](#embedable-shortcode)
    - [Shortcode Output](#shortcode-output)
+   - [QR Code Generator](#qr-code-generator)  
    - [Custom promo message](#custom-message)
    - [Usage limit](#usage-limit)
    - [Usage tracking](#usage-tracking)
@@ -107,6 +107,15 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 
 ---
 
+### Shortcode Output
+
+Use the shortcode anywhere to render a link:
+```php
+echo do_shortcode( '[scu_link id="789" text="Buy Now"]' );
+```
+
+---
+
 ### QR Code Generator
 
 - A QR code of the checkout URL renders automatically.
@@ -116,15 +125,6 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
   - **Embed Snippet**: exact HTML in a textarea  
   - **Download PNG**: saves `qr-code-{POST_ID}.png`
   - **Download SVG**: saves a high-quality, scalable .svg file `qr-code-{ID}.svg`  
-
----
-
-### Shortcode Output
-
-Use the shortcode anywhere to render a link:
-```php
-echo do_shortcode( '[scu_link id="789" text="Buy Now"]' );
-```
 
 ---
 
