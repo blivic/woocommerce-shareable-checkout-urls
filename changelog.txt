@@ -1,0 +1,45 @@
+= 1.3 =
+* New: Modular file structure
+* UTM & Pixel Tracking
+  – Clean-URL tracking – UTM tags don't bloat the shareable link; appended only on redirect.
+  – Meta-pixel support – Specify a Pixel ID globally or per-link; fires client-side from session.
+  – Granular control – New “Global / Custom / None” toggle under each link + master “Enable Tracking” switch in Woo → Advanced.
+* New: REST API endpoints under `/wp-json/scu/v1/links`  
+  – CRUD: Manage shareable-checkout links via REST endpoints
+  – All routes check against the “Minimum Role to Access SCU” setting via `mx_scu_current_user_has_access()`.
+* Fix: General bug-fixes & cleanup
+
+= 1.2 =
+* New: Optional product validation caching (60 min, auto-cleared on product updates)
+* New: "Clear Validation Cache" button in settings
+* New: Tracks link usage, calculates conversion rate and revenue per SCU link
+* New: Added sortable admin columns: Usage, Orders, Conversion Rate, Revenue
+* New: Debug Mode logs cache hits, validation results, coupons, and redirects to debug.log
+* New: Added support for displaying a custom promo message on the checkout page when a shareable URL is used.
+  – Users can choose between showing message as a WooCommerce notice or a custom block.
+  – Promo message supports basic HTML formatting (e.g. `<strong>`, `<em>`, `<a href="">`).
+  – Custom block is automatically moved above all WooCommerce notices for better visibility.
+* Added: Usage limit feature for Shareable Checkout URLs. Admins can now set a maximum allowed uses per link. Once the limit is reached:
+  – The link is automatically set to draft (disabled).
+  – Visitors see a "This checkout link is no longer available." message when accessing expired links.
+  – Usage count is tracked and displayed in the SCU admin list.
+  – Unlimited usage remains the default (when field is empty or zero).
+* Improved: Centralized validation logic for better reliability
+* New: “Minimum Role to Access SCU” option in WooCommerce Advanced → Shareable URLs
+* New: mx_scu_current_user_has_access() enforces that setting across:
+  – Admin menu, post list, meta-boxes, save_post, AJAX search endpoints, settings screen  
+  – Shows a dismissible notice on SCU edit/add pages when access is denied  
+  – Removes SCU menu for users below the selected role
+
+
+
+= 1.1 =
+* NEW: Added a coupon search field in the builder metabox to replace the current textarea
+* NEW: Added settings for customizing QR code size & colors
+* NEW: Added true SVG QR code downloads (fully scalable, print-ready).
+* NEW: Switched to QRCodeSVG library for native vector output.
+* FIX: Preview and download logic improved for size accuracy.
+* FIX: Improved event handler logic prevents multiple PNG files from being downloaded due to duplicate event listeners.
+
+= 1.0 (04-07-2025) =
+* initial release
