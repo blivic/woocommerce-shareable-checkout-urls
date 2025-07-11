@@ -237,6 +237,3 @@ Here's a list of upcoming enhancements and features planned for future releases:
 
 = 1.0  =
 * initial release
-  
-### 1.0.0 (04-07-2025)
-* initial release
