@@ -201,6 +201,8 @@ Here's a list of upcoming enhancements and features planned for future releases:
 * New: REST API endpoints under `/wp-json/scu/v1/links`  <br/>
   – CRUD: Manage shareable-checkout links via REST endpoints<br/>
   – All routes check against the “Minimum Role to Access SCU” setting via `mx_scu_current_user_has_access()`.
+* New: Link-Use Webhook URLs  
+ – Configure one or more webhook endpoints (one per line) ; when a shareable URL is hit, SCU POSTs usage data (link ID, products, coupon, timestamp) to each URL.
 * Fix: General bug-fixes & cleanup
 
 = 1.2 =
