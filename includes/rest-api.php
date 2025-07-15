@@ -112,7 +112,6 @@ function mx_scu_rest_get_link( WP_REST_Request $req ) {
 function mx_scu_rest_create_link( WP_REST_Request $req ) {
     $body = $req->get_json_params();
 
-    // Build the post
     $new_id = wp_insert_post( [
         'post_type'   => 'scu_link',
         'post_status' => 'publish',
