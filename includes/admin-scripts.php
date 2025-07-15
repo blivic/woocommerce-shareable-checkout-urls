@@ -7,6 +7,24 @@ add_action( 'admin_enqueue_scripts', 'mx_scu_assets_loader' );
 add_action( 'admin_head',            'mx_scu_assets_loader' );
 function mx_scu_assets_loader() {
     global $pagenow;
+	
+	if ( $pagenow === 'edit.php' && ( $_GET['post_type'] ?? '' ) === 'scu_link' ) {
+		wp_enqueue_script( 'jquery-ui-dialog' );
+		wp_enqueue_style(  'wp-jquery-ui-dialog' );
+
+		wp_enqueue_script(
+			'mx-scu-email',
+			plugins_url( 'includes/js/scu-email.js', SCU_PLUGIN_FILE ),
+			[ 'jquery', 'jquery-ui-dialog' ],
+			'1.0.0',
+			true
+		);
+		wp_localize_script( 'mx-scu-email', 'mx_scu_data', [
+			'ajax_url'    => admin_url( 'admin-ajax.php' ),
+			'email_nonce' => wp_create_nonce( 'mx_scu_email' ),
+		] );
+		return;
+	}
     
     if ( ! in_array( $pagenow, [ 'post.php', 'post-new.php' ], true ) ) {
         return;
@@ -40,6 +58,7 @@ function mx_scu_assets_loader() {
         wp_localize_script( 'mx-scu-admin', 'mx_scu_data', [
             'site_url'       => trailingslashit( home_url() ),
             'ajax_url'       => admin_url( 'admin-ajax.php' ),
+			'email_nonce'    => wp_create_nonce( 'mx_scu_email' ), 
             'post_id'        => get_the_ID(),
             'endpoint_slug'  => mx_scu_get_endpoint_slug(),
             'qr_size'        => intval( get_post_meta( get_the_ID(), 'mx_scu_qr_size', true ) ?: 200 ),
