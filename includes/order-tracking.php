@@ -22,7 +22,6 @@ function mx_scu_log_conversion( $order_id ) {
         return;
     }
 
-    // Prevent double counting
     if ( $order->get_meta( '_mx_scu_tracked' ) ) {
         return;
     }
