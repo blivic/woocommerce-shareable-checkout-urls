@@ -155,7 +155,7 @@ Show message on checkout (per URL), as a WooCommerce notice or inside a custom b
 
 ### UTM tracking
 
-- If activated and set in Global settings, you can use global defaults FOR utm tracking, use custom UTM/pixel for this link or disable UTM tracking completely
+- If activated and set in Global settings, you can use global defaults for UTM tracking, use custom UTM/pixel for this link or disable UTM tracking completely
 - NOTE: When UTM & Pixel Tracking IS enabled, your shareable URLs remain free of any query strings – default UTM tags and your Meta Pixel ID will only be appended at checkout (for analytics)
 
 ---
