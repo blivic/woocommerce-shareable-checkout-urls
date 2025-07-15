@@ -73,7 +73,6 @@ function mx_scu_handle_endpoint() {
 		if ( $scu_id ) {
 			$webhooks = mx_scu_get_webhook_urls();
 			if ( ! empty( $webhooks ) ) {
-				// Build a payload
 				$payload = [
 					'scu_link_id' => $scu_id,
 					'products'    => explode( ',', sanitize_text_field( wp_unslash( $_GET['products'] ) ) ),
