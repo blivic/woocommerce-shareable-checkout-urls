@@ -163,9 +163,9 @@ Show message on checkout (per URL), as a WooCommerce notice or inside a custom b
 
 ### URL by Email
 
-- Send Shareable URL by Email
+- Send Shareable URL by Email</br>
   – Envelope icon in the SCU list table opens a modal with To / CC / BCC fields </br>
-  – Global Email Subject & Body templates in settings (available placeholders: {link}, {site_name}, {product_list}, {max_uses}, {coupon_section}; fall back to friendly defaults)
+  – Global Email Subject & Body templates in settings (available placeholders: {link}, {site_name}, {product_list}, {max_uses}, {coupon_section}; fall back to friendly defaults)</br>
 * Per-Send Subject & Body Overrides</br>
   – In the “Send by Email” modal you can check “Override defaults” and enter a custom subject & message for each recipient, without touching your global templates.</br>
 
@@ -176,7 +176,7 @@ Show message on checkout (per URL), as a WooCommerce notice or inside a custom b
   – Records each send (recipients + timestamp) in post-meta</br>
   – Email History metabox on the edit screen (with pagination)</br>
 
-  ![Email history Metabox](https://media-x.hr/wp-content/uploads/2025/07/share-06.jpg)
+  ![Email history Metabox](https://media-x.hr/wp-content/uploads/2025/07/share-05.jpg)
 
 
 ---
