@@ -177,7 +177,7 @@ mx_scu_current_user_has_access() enforces that setting across:<br/>
   – Removes SCU menu for users below the selected role
 
 
-![General Settings]([https://media-x.hr/wp-content/uploads/2025/07/share03.jpg](https://media-x.hr/wp-content/uploads/2025/07/share-03.jpg))
+![General Settings](https://media-x.hr/wp-content/uploads/2025/07/share-03.jpg)
 
 ---
 
