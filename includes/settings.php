@@ -202,7 +202,7 @@ function mx_scu_advanced_settings( $settings, $current_section ) {
         'type'        => 'text',
         'default'     => '',             
         'placeholder' => $default_subject,  
-        'desc' => __( 'You may use <code>{link}</code>, <code>{site_name}</code>, <code>{product_list}</code>, <code>{max_uses}</code>, and <code>{coupon_section}</code> in your subject.', 'shareable-checkout-urls' ),
+        'desc' => __( 'You may use <code>{link}</code>, <code>{site_name}</code>, <code>{product_list}</code>, <code>{max_uses}</code>, and <code>{coupon_code}</code> in your subject.', 'shareable-checkout-urls' ),
         'autoload'    => false,
     ];
 
