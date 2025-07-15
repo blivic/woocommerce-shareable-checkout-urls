@@ -1,3 +1,16 @@
+= 1.4 =
+* New: Send Shareable URL by Email
+  – Envelope icon in the SCU list table opens a modal with To / CC / BCC fields
+  – Global Email Subject & Body templates in settings (available placeholders: {link}, {site_name}, {product_list}, {max_uses}, {coupon_section}; fall back to friendly defaults)
+* New: Per-Send Subject & Body Overrides
+  – In the “Send by Email” modal you can check “Override defaults” and enter a custom subject & message for each recipient, without touching your global templates.
+* New: Optional Email History logs
+  – Keep Email History toggle in settings
+  – Records each send (recipients + timestamp) in post-meta
+  – Email History metabox on the edit screen (with pagination)
+* Localization and translation support
+  – All UI strings, settings labels and default templates are fully translatable via the shareable-checkout-urls textdomain.
+
 = 1.3 =
 * New: Modular file structure
 * UTM & Pixel Tracking
