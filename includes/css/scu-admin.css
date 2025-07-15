@@ -51,7 +51,7 @@
   font-weight: 600;
 }
 
-#mx-scu-display-mode-wrap label {
+#mx-scu-display-mode-wrap label, #mx-scu-utm label {
 	margin-bottom: 10px;
 	display: inline-block;
 }
