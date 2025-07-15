@@ -1,0 +1,707 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: yyyy-mm-dd hh:mm+0000\n"
+"PO-Revision-Date: 2025-07-15 13:42+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Eazy Po 0.9.5.3\n"
+
+#: shareable-checkout-urls.php:51
+msgid ""
+"Shareable Checkout URLs requires WooCommerce 10.0 or higher. Please update "
+"WooCommerce."
+msgstr ""
+
+#: shareable-checkout-urls.php:73
+msgid "You do not have permission to manage Shareable Checkout URLs."
+msgstr ""
+
+#: shareable-checkout-urls.php:88
+msgid "Settings"
+msgstr ""
+
+#: shareable-checkout-urls.php:95 includes/post-types.php:14
+#: includes/settings.php:11
+msgid "Shareable URLs"
+msgstr ""
+
+#: shareable-checkout-urls.php:122
+msgid "Shareable Checkout URLs requires WooCommerce 10.0+"
+msgstr ""
+
+#: shareable-checkout-urls.php:123
+msgid "Plugin Activation Error"
+msgstr ""
+
+#: includes/ajax-handlers.php:130
+msgid "Permission denied"
+msgstr ""
+
+#: includes/ajax-handlers.php:143
+msgid "Invalid parameters"
+msgstr ""
+
+#: includes/ajax-handlers.php:152
+#, php-format
+msgid "Invalid email(s): %s"
+msgstr ""
+
+#: includes/ajax-handlers.php:170
+msgid "Failed to send email; check your mail setup."
+msgstr ""
+
+#: includes/checkout-handlers.php:29
+msgid "No products specified."
+msgstr ""
+
+#: includes/checkout-handlers.php:61
+msgid "This checkout link has expired."
+msgstr ""
+
+#: includes/checkout-handlers.php:233
+#, php-format
+msgid "SCU product validation cache cleared. %d transients removed."
+msgstr ""
+
+#: includes/meta-boxes.php:21
+msgid "Build Shareable URL"
+msgstr ""
+
+#: includes/meta-boxes.php:49
+msgid "Search product…"
+msgstr ""
+
+#: includes/meta-boxes.php:64
+msgid "Qty"
+msgstr ""
+
+#: includes/meta-boxes.php:67
+msgid "Remove"
+msgstr ""
+
+#: includes/meta-boxes.php:91
+msgid "Add another product"
+msgstr ""
+
+#: includes/meta-boxes.php:96
+msgid "Coupon (optional)"
+msgstr ""
+
+#: includes/meta-boxes.php:102
+msgid "Search coupon…"
+msgstr ""
+
+#: includes/meta-boxes.php:108
+msgid "Generated URL"
+msgstr ""
+
+#: includes/meta-boxes.php:112
+msgid "Copy"
+msgstr ""
+
+#: includes/meta-boxes.php:120
+msgid "Embedable Shortcode"
+msgstr ""
+
+#: includes/meta-boxes.php:124
+msgid "Link Text"
+msgstr ""
+
+#: includes/meta-boxes.php:131
+msgid "Enter link text…"
+msgstr ""
+
+#: includes/meta-boxes.php:137
+msgid "Generated Shortcode"
+msgstr ""
+
+#: includes/meta-boxes.php:146
+msgid "Copy Shortcode"
+msgstr ""
+
+#: includes/meta-boxes.php:151
+msgid ""
+"This is the basic shortcode. You can add any of the following attributes for "
+"advanced usage:"
+msgstr ""
+
+#: includes/meta-boxes.php:154
+msgid "Add custom CSS class"
+msgstr ""
+
+#: includes/meta-boxes.php:155
+msgid "Inline CSS styles"
+msgstr ""
+
+#: includes/meta-boxes.php:156
+msgid "to open in new tab"
+msgstr ""
+
+#: includes/meta-boxes.php:158
+msgid "to output as a button"
+msgstr ""
+
+#: includes/meta-boxes.php:160
+msgid "Accessibility label or tooltip"
+msgstr ""
+
+#: includes/meta-boxes.php:163
+msgid "Full example:"
+msgstr ""
+
+#: includes/meta-boxes.php:171
+msgid "QR Code Options"
+msgstr ""
+
+#: includes/meta-boxes.php:174
+msgid "QR Size (px)"
+msgstr ""
+
+#: includes/meta-boxes.php:180
+msgid "Dark Color"
+msgstr ""
+
+#: includes/meta-boxes.php:186
+msgid "Light Color"
+msgstr ""
+
+#: includes/meta-boxes.php:193
+msgid "Output mode"
+msgstr ""
+
+#: includes/meta-boxes.php:196
+msgid "Data-URI Image"
+msgstr ""
+
+#: includes/meta-boxes.php:197
+msgid "Embed Snippet"
+msgstr ""
+
+#: includes/meta-boxes.php:198
+msgid "Download PNG"
+msgstr ""
+
+#: includes/meta-boxes.php:199
+msgid "Download SVG"
+msgstr ""
+
+#: includes/meta-boxes.php:211
+msgid "Embed code appears here…"
+msgstr ""
+
+#: includes/meta-boxes.php:216
+msgid "Data-URI Image:"
+msgstr ""
+
+#: includes/meta-boxes.php:217
+msgid "Self-contained <img> you can copy or drag-drop anywhere."
+msgstr ""
+
+#: includes/meta-boxes.php:220
+msgid "Embed Snippet:"
+msgstr ""
+
+#: includes/meta-boxes.php:221
+msgid "Exact <img> HTML sent to the textarea for one-click copy/paste."
+msgstr ""
+
+#: includes/meta-boxes.php:224
+msgid "Download PNG:"
+msgstr ""
+
+#: includes/meta-boxes.php:225
+msgid "Saves a .png file named qr-code-{ID}.png to your downloads folder."
+msgstr ""
+
+#: includes/meta-boxes.php:228
+msgid "Download SVG:"
+msgstr ""
+
+#: includes/meta-boxes.php:229
+msgid "Saves a high-quality, scalable .svg file named qr-code-{ID}.svg."
+msgstr ""
+
+#: includes/meta-boxes.php:234
+msgid "Promo Message (optional)"
+msgstr ""
+
+#: includes/meta-boxes.php:246
+msgid ""
+"This message will appear above the checkout form when this link is used. For "
+"now only on Classic checkout."
+msgstr ""
+
+#: includes/meta-boxes.php:256
+msgid "You can enter basic HTML like <strong>, <em>, <a>…"
+msgstr ""
+
+#: includes/meta-boxes.php:261
+msgid ""
+"Supports basic HTML formatting (e.g. <strong>, <em>, <h3>, <a href="
+"\"\">link</a>)"
+msgstr ""
+
+#: includes/meta-boxes.php:265
+msgid "Display Promo Message As:"
+msgstr ""
+
+#: includes/meta-boxes.php:268
+msgid "WooCommerce Notice"
+msgstr ""
+
+#: includes/meta-boxes.php:272
+msgid "Custom Block (above notices)"
+msgstr ""
+
+#: includes/meta-boxes.php:281
+msgid "Usage Limits"
+msgstr ""
+
+#: includes/meta-boxes.php:284
+msgid "Maximum allowed uses (optional)"
+msgstr ""
+
+#: includes/meta-boxes.php:294
+msgid "Leave blank or 0 for unlimited."
+msgstr ""
+
+#: includes/meta-boxes.php:302
+msgid "UTM & Pixel Tracking (optional)"
+msgstr ""
+
+#: includes/meta-boxes.php:304
+msgid "Tracking for this link"
+msgstr ""
+
+#: includes/meta-boxes.php:307
+msgid "Use global defaults"
+msgstr ""
+
+#: includes/meta-boxes.php:311
+msgid "Use custom UTM/pixel for this link"
+msgstr ""
+
+#: includes/meta-boxes.php:315
+msgid "Disable tracking on this link"
+msgstr ""
+
+#: includes/meta-boxes.php:320
+msgid "UTM Source"
+msgstr ""
+
+#: includes/meta-boxes.php:323
+msgid "newsletter"
+msgstr ""
+
+#: includes/meta-boxes.php:326
+msgid "UTM Medium"
+msgstr ""
+
+#: includes/meta-boxes.php:329
+msgid "email"
+msgstr ""
+
+#: includes/meta-boxes.php:332
+msgid "UTM Campaign"
+msgstr ""
+
+#: includes/meta-boxes.php:335
+msgid "spring-sale"
+msgstr ""
+
+#: includes/meta-boxes.php:338
+msgid "UTM Term"
+msgstr ""
+
+#: includes/meta-boxes.php:341
+msgid "blue-widget"
+msgstr ""
+
+#: includes/meta-boxes.php:344
+msgid "UTM Content"
+msgstr ""
+
+#: includes/meta-boxes.php:347
+msgid "banner-1"
+msgstr ""
+
+#: includes/meta-boxes.php:350
+msgid "Meta Pixel ID"
+msgstr ""
+
+#: includes/meta-boxes.php:353
+msgid "1234567890"
+msgstr ""
+
+#: includes/meta-boxes.php:450
+msgid "Email History"
+msgstr ""
+
+#: includes/meta-boxes.php:460
+msgid "No emails sent yet."
+msgstr ""
+
+#: includes/meta-boxes.php:477
+msgid "To:"
+msgstr ""
+
+#: includes/meta-boxes.php:489
+msgid "Previous"
+msgstr ""
+
+#: includes/meta-boxes.php:496
+msgid "Next"
+msgstr ""
+
+#: includes/post-types.php:9
+msgid "Shareable Checkout URLs"
+msgstr ""
+
+#: includes/post-types.php:10
+msgid "Shareable Checkout URL"
+msgstr ""
+
+#: includes/post-types.php:11
+msgid "Shareable checkout URLs"
+msgstr ""
+
+#: includes/post-types.php:12
+msgid "Add New Shareable URL"
+msgstr ""
+
+#: includes/post-types.php:13
+msgid "Edit Shareable URL"
+msgstr ""
+
+#: includes/post-types.php:41
+msgid "Name"
+msgstr ""
+
+#: includes/post-types.php:42
+msgid "Products × Qty"
+msgstr ""
+
+#: includes/post-types.php:43
+msgid "Coupon"
+msgstr ""
+
+#: includes/post-types.php:44
+msgid "Usage"
+msgstr ""
+
+#: includes/post-types.php:45
+msgid "Orders"
+msgstr ""
+
+#: includes/post-types.php:46
+msgid "Conversion Rate"
+msgstr ""
+
+#: includes/post-types.php:47
+msgid "Revenue"
+msgstr ""
+
+#: includes/post-types.php:48
+msgid "Checkout URL"
+msgstr ""
+
+#: includes/post-types.php:94
+msgid "View"
+msgstr ""
+
+#: includes/post-types.php:137
+msgid "Send"
+msgstr ""
+
+#: includes/post-types.php:152
+msgid "Send SCU link by email"
+msgstr ""
+
+#: includes/post-types.php:164 includes/settings.php:186 includes/utils.php:79
+msgid "Your {site_name} Quick-Checkout Link is Ready! 🚀"
+msgstr ""
+
+#: includes/post-types.php:169
+msgid ""
+"Hi there,\n"
+"\n"
+"Your personal checkout link on {site_name} is here:\n"
+"\n"
+"{link}\n"
+"\n"
+"What’s in your cart: {product_list}\n"
+"\n"
+"Hurry – only {max_uses} use(s) left! Don’t miss out.\n"
+"\n"
+"Thanks for choosing {site_name},\n"
+"The {site_name} Team"
+msgstr ""
+
+#: includes/post-types.php:180
+msgid "Send Shareable Link"
+msgstr ""
+
+#: includes/post-types.php:181
+msgid "To (comma-separate multiple):"
+msgstr ""
+
+#: includes/post-types.php:183
+msgid "CC (optional, comma-separate):"
+msgstr ""
+
+#: includes/post-types.php:185
+msgid "BCC (optional, comma-separate):"
+msgstr ""
+
+#: includes/post-types.php:188
+msgid "Use custom Subject & Message?"
+msgstr ""
+
+#: includes/post-types.php:190
+msgid "Subject override (leave blank to use default):"
+msgstr ""
+
+#: includes/post-types.php:192
+msgid "Message override (leave blank to use default):"
+msgstr ""
+
+#: includes/rest-api.php:104 includes/rest-api.php:138
+#: includes/rest-api.php:162
+msgid "Link not found"
+msgstr ""
+
+#: includes/settings.php:24
+msgid "Shareable URLs Settings"
+msgstr ""
+
+#: includes/settings.php:26
+msgid "Customize the options used by the Shareable Checkout URLs plugin."
+msgstr ""
+
+#: includes/settings.php:31
+msgid "Endpoint Slug"
+msgstr ""
+
+#: includes/settings.php:34
+msgid ""
+"The URL path segment for shareable-checkout links (e.g., <code>checkout-"
+"link</code>, <code>fast-checkout</code>)."
+msgstr ""
+
+#: includes/settings.php:40
+msgid "Enable Product Validation Caching"
+msgstr ""
+
+#: includes/settings.php:44
+msgid ""
+"Improves performance by avoiding repeated validation for popular links. "
+"Cached results expire after 60 minutes and are also cleared automatically "
+"when a product is updated, unpublished, deleted, or its stock status changes."
+msgstr ""
+
+#: includes/settings.php:51
+msgid "Clear Validation Cache"
+msgstr ""
+
+#: includes/settings.php:52
+msgid ""
+"Manually clears all cached product validation results for checkout links."
+msgstr ""
+
+#: includes/settings.php:60
+msgid "Link‐Use Webhook URLs"
+msgstr ""
+
+#: includes/settings.php:64
+msgid ""
+"Enter one or more URLs (one per line) to POST link‐use data to when a "
+"shareable URL is accessed."
+msgstr ""
+
+#: includes/settings.php:70
+msgid "Enable Debug Mode"
+msgstr ""
+
+#: includes/settings.php:74
+msgid ""
+"Logs product validation, cache hits/misses, applied coupons, and redirect "
+"URLs to debug.log. Helps diagnose checkout issues."
+msgstr ""
+
+#: includes/settings.php:79
+msgid "Minimum Role to Access SCU"
+msgstr ""
+
+#: includes/settings.php:83
+msgid ""
+"Minimum role required to manage links. Administrators always have access "
+"regardless of this setting."
+msgstr ""
+
+#: includes/settings.php:85
+msgid "Administrator"
+msgstr ""
+
+#: includes/settings.php:86
+msgid "Shop Manager"
+msgstr ""
+
+#: includes/settings.php:87
+msgid "Editor"
+msgstr ""
+
+#: includes/settings.php:88
+msgid "Author"
+msgstr ""
+
+#: includes/settings.php:89
+msgid "Contributor"
+msgstr ""
+
+#: includes/settings.php:99
+msgid "UTM & Pixel Tracking"
+msgstr ""
+
+#: includes/settings.php:101
+msgid ""
+"When enabled,  your shareable URLs remain free of any query strings – "
+"default UTM tags and your Meta Pixel ID will only be appended at checkout "
+"(for analytics)"
+msgstr ""
+
+#: includes/settings.php:105
+msgid "Enable Tracking"
+msgstr ""
+
+#: includes/settings.php:109
+msgid "Globally append UTM tags & pixel on every shareable link."
+msgstr ""
+
+#: includes/settings.php:114
+msgid "Default UTM Source"
+msgstr ""
+
+#: includes/settings.php:118
+msgid "e.g. newsletter, facebook, affiliate"
+msgstr ""
+
+#: includes/settings.php:123
+msgid "Default UTM Medium"
+msgstr ""
+
+#: includes/settings.php:127
+msgid "e.g. email, cpc, social"
+msgstr ""
+
+#: includes/settings.php:132
+msgid "Default UTM Campaign"
+msgstr ""
+
+#: includes/settings.php:136
+msgid "e.g. spring-sale, launch"
+msgstr ""
+
+#: includes/settings.php:141
+msgid "Default UTM Term"
+msgstr ""
+
+#: includes/settings.php:145
+msgid "e.g. shoes, blue-widget"
+msgstr ""
+
+#: includes/settings.php:150
+msgid "Default UTM Content"
+msgstr ""
+
+#: includes/settings.php:154
+msgid "e.g. banner-1, textlink"
+msgstr ""
+
+#: includes/settings.php:160
+msgid "Default Meta Pixel ID"
+msgstr ""
+
+#: includes/settings.php:164
+msgid "Your Facebook/Meta pixel ID to fire on checkout‐link visit."
+msgstr ""
+
+#: includes/settings.php:171
+msgid "Email Sharing"
+msgstr ""
+
+#: includes/settings.php:173
+msgid "Configure the built-in “Send by Email” action."
+msgstr ""
+
+#: includes/settings.php:178
+msgid "Enable Email Sharing"
+msgstr ""
+
+#: includes/settings.php:182
+msgid "Allow admins to send shareable‐checkout links by email."
+msgstr ""
+
+#: includes/settings.php:188
+msgid ""
+"Hi there,\n"
+"\n"
+"Your personal checkout link on {site_name} is here:\n"
+"\n"
+"{link}\n"
+"\n"
+"What’s in your cart: {product_list}\n"
+"\n"
+"Coupon: {coupon_code}\n"
+"\n"
+"Hurry – only {max_uses} use(s) left! Don’t miss out.\n"
+"\n"
+"Thanks for choosing {site_name},\n"
+"The {site_name} Team"
+msgstr ""
+
+#: includes/settings.php:200
+msgid "Email Subject"
+msgstr ""
+
+#: includes/settings.php:205
+msgid ""
+"You may use <code>{link}</code>, <code>{site_name}</code>, <code>"
+"{product_list}</code>, <code>{max_uses}</code>, and <code>{coupon_section}</"
+"code> in your subject."
+msgstr ""
+
+#: includes/settings.php:210
+msgid "Email Body"
+msgstr ""
+
+#: includes/settings.php:217
+msgid ""
+"Use placeholders like <code>{link}</code>, <code>{site_name}</code>, <code>"
+"{product_list}</code>, <code>{max_uses}</code>, and <code>{coupon_code}</"
+"code>, and basic HTML tags (<code>&lt;strong&gt;</code>, <code>&lt;em&gt;</"
+"code>, <code>&lt;a href=\"…\"&gt;</code>)."
+msgstr ""
+
+#: includes/settings.php:225
+msgid "Enable Email History Logging"
+msgstr ""
+
+#: includes/settings.php:229
+msgid "Keep a record of every email sent for each link."
+msgstr ""
+
+#: includes/shortcodes.php:23
+msgid "Go to Checkout"
+msgstr ""
