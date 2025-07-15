@@ -23,6 +23,7 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
    - [Usage limit](#usage-limit)
    - [Usage tracking](#usage-tracking)
    - [UTM & Pixel tracking tracking](#utm-tracking)
+   - [Shareable URL by Email](#url-by-email)
 5. [General settings](#general-settings)
 6.  [To Do](#to-do)
 7.  [Changelog](#changelog)
@@ -157,6 +158,26 @@ Show message on checkout (per URL), as a WooCommerce notice or inside a custom b
 
 - If activated and set in Global settings, you can use global defaults for UTM tracking, use custom UTM/pixel for this link or disable UTM tracking completely
 - NOTE: When UTM & Pixel Tracking IS enabled, your shareable URLs remain free of any query strings – default UTM tags and your Meta Pixel ID will only be appended at checkout (for analytics)
+
+---
+
+### URL by Email
+
+- Send Shareable URL by Email
+  – Envelope icon in the SCU list table opens a modal with To / CC / BCC fields </br>
+  – Global Email Subject & Body templates in settings (available placeholders: {link}, {site_name}, {product_list}, {max_uses}, {coupon_section}; fall back to friendly defaults)
+* Per-Send Subject & Body Overrides</br>
+  – In the “Send by Email” modal you can check “Override defaults” and enter a custom subject & message for each recipient, without touching your global templates.</br>
+
+  ![Shareable URL by email](https://media-x.hr/wp-content/uploads/2025/07/share-04.jpg)
+
+* Optional Email History logs</br>
+  – Email History toggle in settings</br>
+  – Records each send (recipients + timestamp) in post-meta</br>
+  – Email History metabox on the edit screen (with pagination)</br>
+
+  ![Email history Metabox](https://media-x.hr/wp-content/uploads/2025/07/share-06.jpg)
+
 
 ---
 
