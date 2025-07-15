@@ -2,7 +2,7 @@
 	/**
  * Plugin Name:       Shareable Checkout URLs
  * Description:       Build, save & edit shareable checkout URLs (products + coupon) under Products.
- * Version:           1.3.0
+ * Version:           1.4.0
  * Author:            Media X
  * Author URI:        https://media-x.hr
  * Text Domain:       shareable-checkout-urls
@@ -18,8 +18,19 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'SCU_PLUGIN_FILE', __FILE__ );
 
+add_action( 'plugins_loaded', 'mx_scu_load_textdomain' );
+function mx_scu_load_textdomain() {
+    load_plugin_textdomain(
+        'shareable-checkout-urls',    
+        false,                        
+        dirname( plugin_basename( __FILE__ ) ) . '/languages/'
+    );
+}
+
+
+define( 'SCU_PLUGIN_FILE', __FILE__ );
+// Core includes
 require_once __DIR__ . '/includes/utils.php';
 require_once __DIR__ . '/includes/post-types.php';
 require_once __DIR__ . '/includes/meta-boxes.php';
