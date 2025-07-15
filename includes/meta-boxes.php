@@ -426,7 +426,6 @@ if ( $mode === 'custom' ) {
     update_post_meta( $post_id, 'mx_scu_utm_content',  sanitize_text_field( wp_unslash( $_POST['mx_scu_utm_content']  ?? '' ) ) );
     update_post_meta( $post_id, 'mx_scu_pixel_id',     sanitize_text_field( wp_unslash( $_POST['mx_scu_pixel_id']     ?? '' ) ) );
 	} else {
-		// if mode is “global” or “none” you can clean up old overrides:
 		delete_post_meta( $post_id, 'mx_scu_utm_source' );
 		delete_post_meta( $post_id, 'mx_scu_utm_medium' );
 		delete_post_meta( $post_id, 'mx_scu_utm_campaign' );
@@ -435,4 +434,68 @@ if ( $mode === 'custom' ) {
 		delete_post_meta( $post_id, 'mx_scu_pixel_id' );
 	}
 
+}
+
+add_action( 'add_meta_boxes', 'mx_scu_email_history_metabox' );
+function mx_scu_email_history_metabox() {
+    if ( 'yes' !== get_option( 'scu_enable_email',   'no' ) ) {
+        return;
+    }
+    if ( 'yes' !== get_option( 'scu_enable_email_history', 'no' ) ) {
+        return;
+    }
+
+    add_meta_box(
+		'mx-scu-email-history',
+		__( 'Email History', 'shareable-checkout-urls' ),
+		'mx_scu_email_history_metabox_cb', 
+		'scu_link',
+		'side',
+		'default'
+	);
+}
+function mx_scu_email_history_metabox_cb( $post ) {
+    $history = get_post_meta( $post->ID, 'mx_scu_email_history', true );
+    if ( ! is_array( $history ) || empty( $history ) ) {
+        echo '<p>' . __( 'No emails sent yet.', 'shareable-checkout-urls' ) . '</p>';
+        return;
+    }
+
+    $history    = array_reverse( $history );
+    $per_page   = 20;
+    $page       = max( 1, intval( $_GET['history_page'] ?? 1 ) );
+    $total      = count( $history );
+    $pages      = ceil( $total / $per_page );
+    $start      = ( $page - 1 ) * $per_page;
+    $slice      = array_slice( $history, $start, $per_page );
+
+    echo '<ul style="margin:0; padding-left:1.2em;">';
+    foreach ( $slice as $entry ) {
+        $dt  = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $entry['timestamp'] ) );
+        $to  = implode( ', ', $entry['to'] );
+        echo '<li><strong>' . esc_html( $dt ) . '</strong><br/>' .
+             esc_html__( 'To:', 'shareable-checkout-urls' ) . ' ' . esc_html( $to ) .
+             '</li>';
+    }
+    echo '</ul>';
+
+    if ( $pages > 1 ) {
+        $base = remove_query_arg( 'history_page' );
+        echo '<p style="margin-left:15px;">';
+        if ( $page > 1 ) {
+            printf(
+                '<a href="%s">&laquo; %s</a> ',
+                esc_url( add_query_arg( 'history_page', $page - 1 ) ),
+                __( 'Previous', 'shareable-checkout-urls' )
+            );
+        }
+        if ( $page < $pages ) {
+            printf(
+                '<a href="%s">%s &raquo;</a>',
+                esc_url( add_query_arg( 'history_page', $page + 1 ) ),
+                __( 'Next', 'shareable-checkout-urls' )
+            );
+        }
+        echo '</p>';
+    }
 }
