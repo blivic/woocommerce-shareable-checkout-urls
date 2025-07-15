@@ -127,3 +127,72 @@ add_action( 'pre_get_posts', function( $query ) {
         $query->set( 'orderby', 'meta_value_num' );
     }
 } );
+
+add_filter( 'manage_scu_link_posts_columns', 'mx_scu_add_send_column' );
+function mx_scu_add_send_column( $columns ) {
+    if ( 'yes' !== get_option( 'scu_enable_email', 'no' ) ) {
+        return $columns;
+    }
+
+    $columns['send_email'] = __( 'Send', 'shareable-checkout-urls' );
+    return $columns;
+}
+add_action( 'manage_scu_link_posts_custom_column', function( $column, $post_id ) {
+    if ( 'send_email' !== $column ) {
+        return;
+    }
+    if ( ! mx_scu_current_user_has_access() ) {
+        echo '—';
+        return;
+    }
+    printf(
+        '<a href="#" class="mx-scu-send-email" data-id="%1$d" title="%2$s">'
+      . '<span class="dashicons dashicons-email-alt"></span></a>',
+        esc_attr( $post_id ),
+        esc_attr__( 'Send SCU link by email', 'shareable-checkout-urls' )
+    );
+}, 10, 2 );
+
+add_action( 'admin_footer-edit.php', 'mx_scu_email_modal_html' );
+function mx_scu_email_modal_html() {
+    if ( get_current_screen()->post_type !== 'scu_link' ) {
+        return;
+    }
+	
+    $default_subject = get_option(
+        'scu_email_subject',
+        __( 'Your {site_name} Quick-Checkout Link is Ready! 🚀', 'shareable-checkout-urls' )
+    );
+    $default_body = get_option(
+	  'scu_email_body',
+	  __(
+		"Hi there,\n\n" .
+		"Your personal checkout link on {site_name} is here:\n\n" .
+		"{link}\n\n" .
+		"What’s in your cart: {product_list}\n\n" .
+		"Hurry – only {max_uses} use(s) left! Don’t miss out.\n\n" .
+		"Thanks for choosing {site_name},\n" .
+		"The {site_name} Team",
+		'shareable-checkout-urls'
+	  )
+	);
+    ?>
+    <div id="mx-scu-email-modal" title="<?php esc_attr_e( 'Send Shareable Link', 'shareable-checkout-urls' ); ?>" style="display:none;">
+      <p><?php esc_html_e( 'To (comma-separate multiple):', 'shareable-checkout-urls' ); ?></p>
+      <textarea id="mx-scu-email-to" style="width:100%;height:4.5em;"></textarea>
+      <p><?php esc_html_e( 'CC (optional, comma-separate):', 'shareable-checkout-urls' ); ?></p>
+      <textarea id="mx-scu-email-cc" style="width:100%;height:2.5em;"></textarea>
+      <p><?php esc_html_e( 'BCC (optional, comma-separate):', 'shareable-checkout-urls' ); ?></p>
+      <textarea id="mx-scu-email-bcc" style="width:100%;height:2.5em;"></textarea>
+      <div id="mx-scu-email-error" style="color:#b94a48;margin-top:4px;"></div>
+	  <p><label><input type="checkbox" id="mx-scu-email-override-toggle" /><?php esc_html_e( 'Use custom Subject & Message?', 'shareable-checkout-urls' ); ?></label></p>
+	  <div id="mx-scu-email-override-fields" style="display:none;">
+		<p><?php esc_html_e( 'Subject override (leave blank to use default):', 'shareable-checkout-urls' ); ?></p>
+		<input type="text" id="mx-scu-email-subject" style="width:100%;" data-default="<?php echo esc_attr( $default_subject ); ?>" />
+		<p><?php esc_html_e( 'Message override (leave blank to use default):', 'shareable-checkout-urls' ); ?></p>
+		<textarea id="mx-scu-email-body" style="width:100%;height:6em;" data-default="<?php echo esc_textarea( $default_body ); ?>"></textarea>
+	  </div>
+    </div>
+    <?php
+}
+
