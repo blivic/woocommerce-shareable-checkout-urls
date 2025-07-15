@@ -122,7 +122,7 @@ jQuery(function($){
 
 
   $('#mx-scu-products .mx-scu-product-row').each(function(){
-    initAutocomplete($(this));
+	  initAutocomplete($(this));
   });
   $('#mx-scu-products').sortable({
     handle: '.mx-scu-drag-handle',
