@@ -199,8 +199,8 @@ Here's a list of upcoming enhancements and features planned for future releases:
 * New: Per-Send Subject & Body Overrides<br/>
   – In the “Send by Email” modal you can check “Override defaults” and enter a custom subject & message for each recipient, without touching your global templates.
 * New: Optional Email History logs<br/>
-  – Keep Email History toggle in settings<br/>
-  – Records each send (recipients + timestamp) in post-meta<br/>
+  – Email History toggle in settings<br/>
+  – Record each send (recipients + timestamp) in post-meta<br/>
   – Email History metabox on the edit screen (with pagination)
 * Localization and translation support<br/>
   – All UI strings, settings labels and default templates are fully translatable via the shareable-checkout-urls textdomain.
