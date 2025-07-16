@@ -56,6 +56,22 @@ function mx_scu_search_products() {
 			$parent    = wc_get_product( $var->get_parent_id() );
 			$attr_bits = [];
 
+			$all_defined = true;
+			foreach ( $parent->get_attributes() as $attribute ) {
+				if ( ! $attribute->get_variation() ) {
+					continue;
+				}
+				$slug = $attribute->get_name();
+				$raw  = $var->get_attribute( $slug );
+				if ( '' === $raw ) {
+					$all_defined = false;
+					break;
+				}
+			}
+			if ( ! $all_defined ) {
+				continue;
+			}
+
 			foreach ( $parent->get_attributes() as $attribute ) {
 				if ( ! $attribute->get_variation() ) {
 					continue;
@@ -63,9 +79,7 @@ function mx_scu_search_products() {
 
 				$slug  = $attribute->get_name();
 				$label = wc_attribute_label( $slug );
-
 				$raw   = $var->get_attribute( $slug );
-
 				$value = $raw !== '' ? $raw : "Any {$label}";
 
 				$attr_bits[] = "{$label}: {$value}";
@@ -83,6 +97,7 @@ function mx_scu_search_products() {
 			}
 		}
 	}
+
 
 
     foreach ( wc_get_attribute_taxonomies() as $tax ) {
