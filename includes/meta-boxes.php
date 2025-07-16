@@ -90,6 +90,10 @@ function mx_scu_builder_meta_box( $post ) {
 			<button class="button" id="mx-scu-add-product">
 				<?php esc_html_e( 'Add another product', 'shareable-checkout-urls' ); ?>
 			</button>
+				<p class="description" style="margin-bottom:20px; font-size:0.8em;">
+					<strong><?php esc_html_e( 'NOTE:', 'shareable-checkout-urls' ); ?></strong>
+					<?php esc_html_e( ' For variable products only fully-defined variations can be added (any “Any …” wildcards are skipped), so checkout links always pass validation.', 'shareable-checkout-urls' ); ?>
+				</p>
 		</p>
 
 		<p>
