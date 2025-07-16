@@ -37,27 +37,53 @@ function mx_scu_search_products() {
             $found_ids[] = $pid;
         }
     }
-
+   
     if ( $product_ids ) {
-        $variations = wc_get_products([
-            'type'   => 'variation',
-            'parent' => $product_ids,
-            'limit'  => -1,
-            'status' => 'publish',
-        ]);
-        foreach ( $variations as $var ) {
-            $vid   = $var->get_id();
-            if ( ! in_array( $vid, $found_ids, true ) 
-              && stripos( $var->get_name(), $term ) !== false ) {
-                $results[]   = [
-                    'id'   => $vid,
-                    'text' => sprintf( '%s (ID:%d)', $var->get_name(), $vid ),
-                    'stock'=> $var->managing_stock() ? $var->get_stock_quantity() : -1,
-                ];
-                $found_ids[] = $vid;
-            }
-        }
-    }
+		$variations = wc_get_products( [
+			'type'   => 'variation',
+			'parent' => $product_ids,
+			'limit'  => -1,
+			'status' => 'publish',
+		] );
+
+		foreach ( $variations as $var ) {
+			$vid = $var->get_id();
+
+			if ( in_array( $vid, $found_ids, true ) ) {
+				continue;
+			}
+
+			$parent    = wc_get_product( $var->get_parent_id() );
+			$attr_bits = [];
+
+			foreach ( $parent->get_attributes() as $attribute ) {
+				if ( ! $attribute->get_variation() ) {
+					continue;
+				}
+
+				$slug  = $attribute->get_name();
+				$label = wc_attribute_label( $slug );
+
+				$raw   = $var->get_attribute( $slug );
+
+				$value = $raw !== '' ? $raw : "Any {$label}";
+
+				$attr_bits[] = "{$label}: {$value}";
+			}
+
+			$name = $parent->get_name() . ' (' . implode( ', ', $attr_bits ) . ')';
+
+			if ( stripos( $name, $term ) !== false ) {
+				$results[]   = [
+					'id'    => $vid,
+					'text'  => sprintf( '%s (ID:%d)', $name, $vid ),
+					'stock' => $var->managing_stock() ? $var->get_stock_quantity() : -1,
+				];
+				$found_ids[] = $vid;
+			}
+		}
+	}
+
 
     foreach ( wc_get_attribute_taxonomies() as $tax ) {
         $meta_key = sanitize_text_field( $tax->attribute_name );
@@ -170,7 +196,6 @@ function mx_scu_ajax_send_email() {
         wp_send_json_error( __( 'Failed to send email; check your mail setup.', 'shareable-checkout-urls' ) );
     }
 
-    // 5) Record history if enabled
     if ( 'yes' === get_option( 'scu_enable_email_history', 'no' ) ) {
         $history = get_post_meta( $id, 'mx_scu_email_history', true );
         if ( ! is_array( $history ) ) {
