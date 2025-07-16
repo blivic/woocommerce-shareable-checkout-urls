@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR <info@media-x.hr>, 2025.
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: yyyy-mm-dd hh:mm+0000\n"
-"PO-Revision-Date: 2025-07-15 13:42+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-16 16:52+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Eazy Po 0.9.5.3\n"
 
 #: shareable-checkout-urls.php:51
 msgid ""
@@ -45,20 +44,20 @@ msgstr ""
 msgid "Plugin Activation Error"
 msgstr ""
 
-#: includes/ajax-handlers.php:130
+#: includes/ajax-handlers.php:171
 msgid "Permission denied"
 msgstr ""
 
-#: includes/ajax-handlers.php:143
+#: includes/ajax-handlers.php:184
 msgid "Invalid parameters"
 msgstr ""
 
-#: includes/ajax-handlers.php:152
+#: includes/ajax-handlers.php:193
 #, php-format
 msgid "Invalid email(s): %s"
 msgstr ""
 
-#: includes/ajax-handlers.php:170
+#: includes/ajax-handlers.php:211
 msgid "Failed to send email; check your mail setup."
 msgstr ""
 
@@ -95,273 +94,283 @@ msgstr ""
 msgid "Add another product"
 msgstr ""
 
-#: includes/meta-boxes.php:96
+#: includes/meta-boxes.php:94
+msgid "NOTE:"
+msgstr ""
+
+#: includes/meta-boxes.php:95
+msgid ""
+" For variable products only fully-defined variations can be added (any “Any "
+"…” wildcards are skipped), so checkout links always pass validation."
+msgstr ""
+
+#: includes/meta-boxes.php:101
 msgid "Coupon (optional)"
 msgstr ""
 
-#: includes/meta-boxes.php:102
+#: includes/meta-boxes.php:107
 msgid "Search coupon…"
 msgstr ""
 
-#: includes/meta-boxes.php:108
+#: includes/meta-boxes.php:113
 msgid "Generated URL"
 msgstr ""
 
-#: includes/meta-boxes.php:112
+#: includes/meta-boxes.php:117
 msgid "Copy"
 msgstr ""
 
-#: includes/meta-boxes.php:120
+#: includes/meta-boxes.php:125
 msgid "Embedable Shortcode"
 msgstr ""
 
-#: includes/meta-boxes.php:124
+#: includes/meta-boxes.php:129
 msgid "Link Text"
 msgstr ""
 
-#: includes/meta-boxes.php:131
+#: includes/meta-boxes.php:136
 msgid "Enter link text…"
 msgstr ""
 
-#: includes/meta-boxes.php:137
+#: includes/meta-boxes.php:142
 msgid "Generated Shortcode"
 msgstr ""
 
-#: includes/meta-boxes.php:146
+#: includes/meta-boxes.php:151
 msgid "Copy Shortcode"
 msgstr ""
 
-#: includes/meta-boxes.php:151
+#: includes/meta-boxes.php:156
 msgid ""
 "This is the basic shortcode. You can add any of the following attributes for "
 "advanced usage:"
 msgstr ""
 
-#: includes/meta-boxes.php:154
+#: includes/meta-boxes.php:159
 msgid "Add custom CSS class"
 msgstr ""
 
-#: includes/meta-boxes.php:155
+#: includes/meta-boxes.php:160
 msgid "Inline CSS styles"
 msgstr ""
 
-#: includes/meta-boxes.php:156
+#: includes/meta-boxes.php:161
 msgid "to open in new tab"
 msgstr ""
 
-#: includes/meta-boxes.php:158
+#: includes/meta-boxes.php:163
 msgid "to output as a button"
 msgstr ""
 
-#: includes/meta-boxes.php:160
+#: includes/meta-boxes.php:165
 msgid "Accessibility label or tooltip"
 msgstr ""
 
-#: includes/meta-boxes.php:163
+#: includes/meta-boxes.php:168
 msgid "Full example:"
 msgstr ""
 
-#: includes/meta-boxes.php:171
+#: includes/meta-boxes.php:176
 msgid "QR Code Options"
 msgstr ""
 
-#: includes/meta-boxes.php:174
+#: includes/meta-boxes.php:179
 msgid "QR Size (px)"
 msgstr ""
 
-#: includes/meta-boxes.php:180
+#: includes/meta-boxes.php:185
 msgid "Dark Color"
 msgstr ""
 
-#: includes/meta-boxes.php:186
+#: includes/meta-boxes.php:191
 msgid "Light Color"
 msgstr ""
 
-#: includes/meta-boxes.php:193
+#: includes/meta-boxes.php:198
 msgid "Output mode"
 msgstr ""
 
-#: includes/meta-boxes.php:196
+#: includes/meta-boxes.php:201
 msgid "Data-URI Image"
 msgstr ""
 
-#: includes/meta-boxes.php:197
+#: includes/meta-boxes.php:202
 msgid "Embed Snippet"
 msgstr ""
 
-#: includes/meta-boxes.php:198
+#: includes/meta-boxes.php:203
 msgid "Download PNG"
 msgstr ""
 
-#: includes/meta-boxes.php:199
+#: includes/meta-boxes.php:204
 msgid "Download SVG"
 msgstr ""
 
-#: includes/meta-boxes.php:211
+#: includes/meta-boxes.php:216
 msgid "Embed code appears here…"
 msgstr ""
 
-#: includes/meta-boxes.php:216
+#: includes/meta-boxes.php:221
 msgid "Data-URI Image:"
 msgstr ""
 
-#: includes/meta-boxes.php:217
+#: includes/meta-boxes.php:222
 msgid "Self-contained <img> you can copy or drag-drop anywhere."
 msgstr ""
 
-#: includes/meta-boxes.php:220
+#: includes/meta-boxes.php:225
 msgid "Embed Snippet:"
 msgstr ""
 
-#: includes/meta-boxes.php:221
+#: includes/meta-boxes.php:226
 msgid "Exact <img> HTML sent to the textarea for one-click copy/paste."
 msgstr ""
 
-#: includes/meta-boxes.php:224
+#: includes/meta-boxes.php:229
 msgid "Download PNG:"
 msgstr ""
 
-#: includes/meta-boxes.php:225
+#: includes/meta-boxes.php:230
 msgid "Saves a .png file named qr-code-{ID}.png to your downloads folder."
 msgstr ""
 
-#: includes/meta-boxes.php:228
+#: includes/meta-boxes.php:233
 msgid "Download SVG:"
 msgstr ""
 
-#: includes/meta-boxes.php:229
+#: includes/meta-boxes.php:234
 msgid "Saves a high-quality, scalable .svg file named qr-code-{ID}.svg."
 msgstr ""
 
-#: includes/meta-boxes.php:234
+#: includes/meta-boxes.php:239
 msgid "Promo Message (optional)"
 msgstr ""
 
-#: includes/meta-boxes.php:246
+#: includes/meta-boxes.php:251
 msgid ""
 "This message will appear above the checkout form when this link is used. For "
 "now only on Classic checkout."
 msgstr ""
 
-#: includes/meta-boxes.php:256
+#: includes/meta-boxes.php:261
 msgid "You can enter basic HTML like <strong>, <em>, <a>…"
 msgstr ""
 
-#: includes/meta-boxes.php:261
+#: includes/meta-boxes.php:266
 msgid ""
 "Supports basic HTML formatting (e.g. <strong>, <em>, <h3>, <a href="
 "\"\">link</a>)"
 msgstr ""
 
-#: includes/meta-boxes.php:265
+#: includes/meta-boxes.php:270
 msgid "Display Promo Message As:"
 msgstr ""
 
-#: includes/meta-boxes.php:268
+#: includes/meta-boxes.php:273
 msgid "WooCommerce Notice"
 msgstr ""
 
-#: includes/meta-boxes.php:272
+#: includes/meta-boxes.php:277
 msgid "Custom Block (above notices)"
 msgstr ""
 
-#: includes/meta-boxes.php:281
+#: includes/meta-boxes.php:286
 msgid "Usage Limits"
 msgstr ""
 
-#: includes/meta-boxes.php:284
+#: includes/meta-boxes.php:289
 msgid "Maximum allowed uses (optional)"
 msgstr ""
 
-#: includes/meta-boxes.php:294
+#: includes/meta-boxes.php:299
 msgid "Leave blank or 0 for unlimited."
 msgstr ""
 
-#: includes/meta-boxes.php:302
+#: includes/meta-boxes.php:307
 msgid "UTM & Pixel Tracking (optional)"
 msgstr ""
 
-#: includes/meta-boxes.php:304
+#: includes/meta-boxes.php:309
 msgid "Tracking for this link"
 msgstr ""
 
-#: includes/meta-boxes.php:307
+#: includes/meta-boxes.php:312
 msgid "Use global defaults"
 msgstr ""
 
-#: includes/meta-boxes.php:311
+#: includes/meta-boxes.php:316
 msgid "Use custom UTM/pixel for this link"
 msgstr ""
 
-#: includes/meta-boxes.php:315
+#: includes/meta-boxes.php:320
 msgid "Disable tracking on this link"
 msgstr ""
 
-#: includes/meta-boxes.php:320
+#: includes/meta-boxes.php:325
 msgid "UTM Source"
 msgstr ""
 
-#: includes/meta-boxes.php:323
+#: includes/meta-boxes.php:328
 msgid "newsletter"
 msgstr ""
 
-#: includes/meta-boxes.php:326
+#: includes/meta-boxes.php:331
 msgid "UTM Medium"
 msgstr ""
 
-#: includes/meta-boxes.php:329
+#: includes/meta-boxes.php:334
 msgid "email"
 msgstr ""
 
-#: includes/meta-boxes.php:332
+#: includes/meta-boxes.php:337
 msgid "UTM Campaign"
 msgstr ""
 
-#: includes/meta-boxes.php:335
+#: includes/meta-boxes.php:340
 msgid "spring-sale"
 msgstr ""
 
-#: includes/meta-boxes.php:338
+#: includes/meta-boxes.php:343
 msgid "UTM Term"
 msgstr ""
 
-#: includes/meta-boxes.php:341
+#: includes/meta-boxes.php:346
 msgid "blue-widget"
 msgstr ""
 
-#: includes/meta-boxes.php:344
+#: includes/meta-boxes.php:349
 msgid "UTM Content"
 msgstr ""
 
-#: includes/meta-boxes.php:347
+#: includes/meta-boxes.php:352
 msgid "banner-1"
 msgstr ""
 
-#: includes/meta-boxes.php:350
+#: includes/meta-boxes.php:355
 msgid "Meta Pixel ID"
 msgstr ""
 
-#: includes/meta-boxes.php:353
+#: includes/meta-boxes.php:358
 msgid "1234567890"
 msgstr ""
 
-#: includes/meta-boxes.php:450
+#: includes/meta-boxes.php:455
 msgid "Email History"
 msgstr ""
 
-#: includes/meta-boxes.php:460
+#: includes/meta-boxes.php:465
 msgid "No emails sent yet."
 msgstr ""
 
-#: includes/meta-boxes.php:477
+#: includes/meta-boxes.php:482
 msgid "To:"
 msgstr ""
 
-#: includes/meta-boxes.php:489
+#: includes/meta-boxes.php:494
 msgid "Previous"
 msgstr ""
 
-#: includes/meta-boxes.php:496
+#: includes/meta-boxes.php:501
 msgid "Next"
 msgstr ""
 
