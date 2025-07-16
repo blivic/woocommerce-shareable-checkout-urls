@@ -223,7 +223,7 @@ Here's a list of upcoming enhancements and features planned for future releases:
   – Email History toggle in settings<br/>
   – Record each send (recipients + timestamp) in post-meta<br/>
   – Email History metabox on the edit screen (with pagination)
- * Fix: Fixed AJAX variation search to always rebuild variation labels from all attributes (e.g. Size, Color), including “Any <attribute>” fallbacks for wildcard values.
+ * Fix: AJAX variation search to only list fully-defined variations (skipping any “Any …” wildcards) so generated checkout links always pass validation
 * Localization and translation support<br/>
   – All UI strings, settings labels and default templates are fully translatable via the shareable-checkout-urls textdomain.
   
