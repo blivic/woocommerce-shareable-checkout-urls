@@ -8,7 +8,7 @@
   – Keep Email History toggle in settings
   – Records each send (recipients + timestamp) in post-meta
   – Email History metabox on the edit screen (with pagination)
-* Fix: Fixed AJAX variation search to always rebuild variation labels from all attributes (e.g. Size, Color), including “Any <attribute>” fallbacks for wildcard values.
+* Fix: AJAX variation search to only list fully-defined variations (skipping any “Any …” wildcards) so generated checkout links always pass validation
 * Localization and translation support
   – All UI strings, settings labels and default templates are fully translatable via the shareable-checkout-urls textdomain.
 
