@@ -207,7 +207,7 @@ mx_scu_current_user_has_access() enforces that setting across:<br/>
 Here's a list of upcoming enhancements and features planned for future releases:
 
 - Ensure the compatibility with dynamic endpoint slug (If/when the option gets into WooCommerce core)
-- Add localization and translation support
+- Add support for non-numeric product identifiers in shareable checkout URLs
 
 ---
 
