@@ -1,3 +1,6 @@
+= 1.4.1 =
+* New: Added “Experimental: SKU/Slug Support” setting. When enabled, non-numeric identifiers in your shareable URLs (product SKUs or slugs) are automatically converted to the correct product IDs before validation and cart addition.
+
 = 1.4 =
 * New: Send Shareable URL by Email
   – Envelope icon in the SCU list table opens a modal with To / CC / BCC fields
