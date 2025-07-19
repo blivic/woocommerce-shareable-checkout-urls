@@ -26,7 +26,7 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
    - [Shareable URL by Email](#url-by-email)
 5. [General settings](#general-settings)
 6.  [To Do](#to-do)
-7.  [Changelog](#changelog)
+7.  [Changelog](#changelog) 
 
 ---
 
