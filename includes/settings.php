@@ -89,6 +89,15 @@ function mx_scu_advanced_settings( $settings, $current_section ) {
             'contributor'   => __( 'Contributor',     'shareable-checkout-urls' ),
         ],
     ];
+	
+	$scu_settings[] = [
+        'title'   => __( 'Experimental: SKU/Slug Support', 'shareable-checkout-urls' ),
+        'id'      => 'scu_enable_sku_slug',
+        'type'    => 'checkbox',
+        'default' => 'no',
+        'desc'    => __( 'Allow non-numeric identifiers (SKU or product slug) in shareable URLs. Use IDs only for maximum reliability.', 'shareable-checkout-urls' ),
+        'autoload' => false,
+    ];
 
     $scu_settings[] = [
         'type' => 'sectionend',
@@ -202,7 +211,7 @@ function mx_scu_advanced_settings( $settings, $current_section ) {
         'type'        => 'text',
         'default'     => '',             
         'placeholder' => $default_subject,  
-        'desc' => __( 'You may use <code>{link}</code>, <code>{site_name}</code>, <code>{product_list}</code>, <code>{max_uses}</code>, and <code>{coupon_code}</code> in your subject.', 'shareable-checkout-urls' ),
+        'desc' => __( 'You may use <code>{link}</code>, <code>{site_name}</code>, <code>{product_list}</code>, <code>{max_uses}</code>, and <code>{coupon_section}</code> in your subject.', 'shareable-checkout-urls' ),
         'autoload'    => false,
     ];
 
@@ -308,3 +317,7 @@ add_action( 'admin_footer', function() {
         <?php
     }
 } );
+
+
+
+

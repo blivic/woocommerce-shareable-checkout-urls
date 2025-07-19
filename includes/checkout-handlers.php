@@ -29,68 +29,103 @@ function mx_scu_handle_endpoint() {
         wp_die( __( 'No products specified.', 'shareable-checkout-urls' ) );
     }
 
+
+    $raw_products = sanitize_text_field( wp_unslash( $_GET['products'] ) );
+    $normalized   = $raw_products; 
+
+    if ( get_option( 'scu_enable_sku_slug', 'no' ) === 'yes' ) {
+        $pairs       = explode( ',', $raw_products );
+        $fixed_pairs = [];
+
+        foreach ( $pairs as $pair ) {
+            list( $identifier, $qty ) = explode( ':', $pair . ':1' );
+            $qty = absint( $qty );
+
+            if ( ctype_digit( $identifier ) ) {
+                $fixed_pairs[] = "{$identifier}:{$qty}";
+            } else {
+                // try SKU lookup
+                $product_id = wc_get_product_id_by_sku( sanitize_text_field( $identifier ) );
+                if ( ! $product_id ) {
+                    // fallback: try product slug
+                    $post       = get_page_by_path( sanitize_title( $identifier ), OBJECT, 'product' );
+                    $product_id = $post ? $post->ID : 0;
+                }
+                if ( $product_id ) {
+                    $fixed_pairs[] = "{$product_id}:{$qty}";
+                }
+            }
+        }
+
+        $normalized = implode( ',', $fixed_pairs );
+        $_GET['products']     = $normalized;
+        $_REQUEST['products'] = $normalized;
+    }
+
+
     WC()->cart->empty_cart( true );
 
-    $raw_string = sanitize_text_field( wp_unslash( $_GET['products'] ) );
-    $validated  = mx_scu_validate_products( $raw_string );
+    $validated = mx_scu_validate_products( $normalized );
     foreach ( $validated as $entry ) {
         if ( $entry['valid'] ) {
             WC()->cart->add_to_cart( $entry['id'], $entry['qty'] );
         }
     }
 
-    $scu_id    = 0;
-    $full_url  = home_url( $_SERVER['REQUEST_URI'] );
-    $posts     = get_posts([
+    $scu_id   = 0;
+    $full_url = home_url( $_SERVER['REQUEST_URI'] );
+    $posts    = get_posts( [
         'post_type'   => 'scu_link',
-        'post_status' => [ 'publish','draft' ],
+        'post_status' => [ 'publish', 'draft' ],
         'numberposts' => 1,
         'meta_query'  => [[
             'key'     => 'mx_scu_url',
             'value'   => $full_url,
             'compare' => 'LIKE',
         ]],
-    ]);
+    ] );
+
     if ( $posts ) {
         $scu_id = (int) $posts[0]->ID;
 
-
         $max = (int) get_post_meta( $scu_id, 'mx_scu_max_uses', true );
         $cnt = (int) get_post_meta( $scu_id, 'mx_scu_uses',      true );
+
         if ( $max && $cnt >= $max ) {
             wp_die( __( 'This checkout link has expired.', 'shareable-checkout-urls' ) );
         }
+
         update_post_meta( $scu_id, 'mx_scu_uses', $cnt + 1 );
+
         if ( $max && $cnt + 1 >= $max ) {
-            wp_update_post([ 'ID'=>$scu_id,'post_status'=>'draft' ]);
+            wp_update_post( [ 'ID' => $scu_id, 'post_status' => 'draft' ] );
         }
 
-        // store in session for promo + order tracking
         WC()->session->set( 'mx_scu_link_id',     $scu_id );
         WC()->session->set( 'mx_scu_cart_scu_id', $scu_id );
-		
-		// Webhook
-		if ( $scu_id ) {
-			$webhooks = mx_scu_get_webhook_urls();
-			if ( ! empty( $webhooks ) ) {
-				$payload = [
-					'scu_link_id' => $scu_id,
-					'products'    => explode( ',', sanitize_text_field( wp_unslash( $_GET['products'] ) ) ),
-					'coupon'      => isset( $_GET['coupon'] ) ? sanitize_text_field( wp_unslash( $_GET['coupon'] ) ) : '',
-					'timestamp'   => gmdate( 'c' ),
-					'user_ip'     => $_SERVER['REMOTE_ADDR'] ?? '',
-				];
 
-				foreach ( $webhooks as $url ) {
-					wp_remote_post( $url, [
-						'timeout'   => 2,
-						'body'      => wp_json_encode( $payload ),
-						'headers'   => [ 'Content-Type' => 'application/json' ],
-						'blocking'  => false,
-					] );
-				}
-			}
-		}
+        // Webhook
+        if ( ! empty( $scu_id ) ) {
+            $webhooks = mx_scu_get_webhook_urls();
+            if ( ! empty( $webhooks ) ) {
+                $payload = [
+                    'scu_link_id' => $scu_id,
+                    'products'    => explode( ',', $normalized ),
+                    'coupon'      => isset( $_GET['coupon'] ) ? sanitize_text_field( wp_unslash( $_GET['coupon'] ) ) : '',
+                    'timestamp'   => gmdate( 'c' ),
+                    'user_ip'     => $_SERVER['REMOTE_ADDR'] ?? '',
+                ];
+
+                foreach ( $webhooks as $url ) {
+                    wp_remote_post( $url, [
+                        'timeout'  => 2,
+                        'body'     => wp_json_encode( $payload ),
+                        'headers'  => [ 'Content-Type' => 'application/json' ],
+                        'blocking' => false,
+                    ] );
+                }
+            }
+        }
     }
 
     if ( ! empty( $_GET['coupon'] ) ) {
@@ -102,11 +137,11 @@ function mx_scu_handle_endpoint() {
     $mode      = get_post_meta( $scu_id, 'mx_scu_tracking_mode', true ) ?: 'global';
     $global_on = get_option( 'scu_enable_tracking', 'no' ) === 'yes';
 
-    if ( ( $mode === 'custom' ) || ( $mode === 'global' && $global_on ) ) {
-
+    if ( 'custom' === $mode || ( 'global' === $mode && $global_on ) ) {
+        // UTM params
         $utm = [];
-        foreach ( [ 'source','medium','campaign','term','content' ] as $f ) {
-            if ( $mode === 'custom' ) {
+        foreach ( [ 'source', 'medium', 'campaign', 'term', 'content' ] as $f ) {
+            if ( 'custom' === $mode ) {
                 $v = get_post_meta( $scu_id, "mx_scu_utm_{$f}", true );
             } else {
                 $v = get_option( "scu_utm_{$f}", '' );
@@ -115,13 +150,11 @@ function mx_scu_handle_endpoint() {
                 $utm[ "utm_{$f}" ] = sanitize_text_field( $v );
             }
         }
-
         if ( ! empty( $utm ) ) {
             $checkout_url = add_query_arg( $utm, $checkout_url );
         }
 
-
-        if ( $mode === 'custom' ) {
+        if ( 'custom' === $mode ) {
             $pixel = get_post_meta( $scu_id, 'mx_scu_pixel_id', true );
         } else {
             $pixel = get_option( 'scu_pixel_id', '' );
@@ -134,6 +167,7 @@ function mx_scu_handle_endpoint() {
     wp_safe_redirect( $checkout_url );
     exit;
 }
+
 
 function mx_scu_validate_products( $product_string ) {
     $use_cache = 'yes' === get_option( 'scu_enable_cache', 'no' );

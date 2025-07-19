@@ -211,6 +211,7 @@ function mx_scu_ajax_send_email() {
         wp_send_json_error( __( 'Failed to send email; check your mail setup.', 'shareable-checkout-urls' ) );
     }
 
+    // 5) Record history if enabled
     if ( 'yes' === get_option( 'scu_enable_email_history', 'no' ) ) {
         $history = get_post_meta( $id, 'mx_scu_email_history', true );
         if ( ! is_array( $history ) ) {
