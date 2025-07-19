@@ -207,12 +207,14 @@ mx_scu_current_user_has_access() enforces that setting across:<br/>
 Here's a list of upcoming enhancements and features planned for future releases:
 
 - Ensure the compatibility with dynamic endpoint slug (If/when the option gets into WooCommerce core)
-- Add support for non-numeric product identifiers in shareable checkout URLs
 
 ---
 
 ## Changelog
 
+= 1.4.1 =
+* New: Added “Experimental: SKU/Slug Support” setting. When enabled, non-numeric identifiers in your shareable URLs (product SKUs or slugs) are automatically converted to the correct product IDs before validation and cart addition.
+  
 = 1.4 =
 * New: Send Shareable URL by Email<br/>
   – Envelope icon in the SCU list table opens a modal with To / CC / BCC fields<br/>
