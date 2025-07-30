@@ -212,6 +212,17 @@ Here's a list of upcoming enhancements and features planned for future releases:
 
 ## Changelog
 
+= 1.5 =
+### NEW
+* Inline modal for CSV import/export directly on the CPT list page
+* Drag & drop or click-to-browse file picker with real-time header validation (requires exact columns: `scu name,products,coupon`).  
+* Downloadable CSV template via AJAX, pre-filled with header row and sample data.  
+* Background-queued import using WP-Cron (chunked at 50 rows), with a progress bar and “X of Y processed…” feedback.  
+* Automatic modal close and page reload ~2.5 seconds after a successful import.  
+* Timestamped export filenames, e.g. `scu-export-2025-07-29_16-45-12.csv`
+* Improved capability checks (`mx_scu_cpt_capability()`) and nonce validations for all endpoints. 
+* Expanded export columns to include: Uses (`mx_scu_uses`), Orders (`mx_scu_order_count`), Revenue (`mx_scu_order_total`) and Conversion Rate (orders ÷ uses × 100%)
+  
 = 1.4.1 =
 * New: Added “Experimental: SKU/Slug Support” setting. When enabled, non-numeric identifiers in your shareable URLs (product SKUs or slugs) are automatically converted to the correct product IDs before validation and cart addition.
   
