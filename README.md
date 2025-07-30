@@ -24,6 +24,7 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
    - [Usage tracking](#usage-tracking)
    - [UTM & Pixel tracking tracking](#utm-tracking)
    - [Shareable URL by Email](#url-by-email)
+   - [CSV Import / Export](#csv-import-export)
 5. [General settings](#general-settings)
 6.  [To Do](#to-do)
 7.  [Changelog](#changelog) 
@@ -55,7 +56,8 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
   - CRUD operations for shareable-checkout links  </br>
   - All routes respect the “Minimum Role to Access SCU” setting via `mx_scu_current_user_has_access()`  
 - Coupon Search Field in Builder Metabox (replaces textarea)  
-- Embedable Shortcodes with advanced attributes: `text`, `class`, `style`, `target`, `rel`, `button`, `align`, `aria-label`, `title`  
+- Embedable Shortcodes with advanced attributes: `text`, `class`, `style`, `target`, `rel`, `button`, `align`, `aria-label`, `title`
+- Fully-integrated bulk CSV import/export workflow directly on the Shareable URLs admin list screen
 
 
 
@@ -178,6 +180,19 @@ Show message on checkout (per URL), as a WooCommerce notice or inside a custom b
 
   ![Email history Metabox](https://media-x.hr/wp-content/uploads/2025/07/share-05.jpg)
 
+
+---
+
+### CSV Import Export
+
+- Inline modal CSV workflow: Import and export now live in a lightweight Thickbox modal right on the Shareable URLs list. </br>
+- Smart file picker: Drag-&-drop or tap-to-browse CSV uploads with instant header-row validation (exact columns required: scu name, products, coupon).</br>
+- One-click template: AJAX-powered “Download CSV template” provides a ready-to-use file pre-filled with headers and sample data.</br>
+- Background-queued imports: Large files are split into 50-row chunks and processed via WP-Cron, with an in-modal progress bar reporting “X of Y rows processed.”</br>
+- Seamless finish: On success, the modal auto-closes after a brief delay and the CPT list automatically reloads.</br>
+- Timestamped exports: Export filenames include the exact date/time (e.g. scu-export-2025-07-29_16-45-12.csv).</br>
+- Hardened security: All import/export AJAX endpoints enforce the unified mx_scu_cpt_capability() check and proper nonce validation.</br>
+- Richer export data: CSV output includes performance metrics — Uses, Orders, Revenue and Conversion Rate (%)—for each link.
 
 ---
 
