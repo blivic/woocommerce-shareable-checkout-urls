@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) YEAR Media X
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <info@media-x.hr>, 2025.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-16 16:52+0200\n"
+"POT-Creation-Date: 2025-07-30 12:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: shareable-checkout-urls.php:51
 msgid ""
@@ -44,6 +45,50 @@ msgstr ""
 msgid "Plugin Activation Error"
 msgstr ""
 
+#: includes/admin-bulk.php:93
+msgid "Import"
+msgstr ""
+
+#: includes/admin-bulk.php:94
+msgid "Export"
+msgstr ""
+
+#: includes/admin-bulk.php:110
+msgid "Import CSV"
+msgstr ""
+
+#: includes/admin-bulk.php:113
+msgid "csv format: scu name,products,coupon"
+msgstr ""
+
+#: includes/admin-bulk.php:117
+msgid "Download CSV template"
+msgstr ""
+
+#: includes/admin-bulk.php:121
+msgid "drag & drop csv here or click to browse"
+msgstr ""
+
+#: includes/admin-bulk.php:128
+msgid "Upload & create links"
+msgstr ""
+
+#: includes/admin-bulk.php:256
+msgid "No file uploaded."
+msgstr ""
+
+#: includes/admin-bulk.php:350
+#, php-format
+msgid "Bulk import %s"
+msgstr ""
+
+#: includes/admin-bulk.php:393
+#, php-format
+msgid "%d link created."
+msgid_plural "%d links created."
+msgstr[0] ""
+msgstr[1] ""
+
 #: includes/ajax-handlers.php:171
 msgid "Permission denied"
 msgstr ""
@@ -65,11 +110,11 @@ msgstr ""
 msgid "No products specified."
 msgstr ""
 
-#: includes/checkout-handlers.php:61
+#: includes/checkout-handlers.php:95
 msgid "This checkout link has expired."
 msgstr ""
 
-#: includes/checkout-handlers.php:233
+#: includes/checkout-handlers.php:283
 #, php-format
 msgid "SCU product validation cache cleared. %d transients removed."
 msgstr ""
@@ -709,6 +754,36 @@ msgstr ""
 
 #: includes/settings.php:229
 msgid "Keep a record of every email sent for each link."
+msgstr ""
+
+#: includes/settings.php:239
+msgid "Experimental features"
+msgstr ""
+
+#: includes/settings.php:241
+msgid ""
+"Use with caution. For now, these features enable additional options ONLY for "
+"manually created Shareable links"
+msgstr ""
+
+#: includes/settings.php:246
+msgid "Experimental: SKU/Slug Support"
+msgstr ""
+
+#: includes/settings.php:250
+msgid ""
+"Allow non-numeric identifiers (SKU or product slug) in shareable URLs. Use "
+"IDs only for maximum reliability."
+msgstr ""
+
+#: includes/settings.php:255
+msgid "Experimental: Multi-Coupon Support"
+msgstr ""
+
+#: includes/settings.php:259
+msgid ""
+"Allow a comma-separated list of coupons in the URL (e.g. &coupon=SUMMER10,"
+"SPRING5)."
 msgstr ""
 
 #: includes/shortcodes.php:23
