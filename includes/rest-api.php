@@ -229,4 +229,3 @@ function mx_scu_rest_save_meta( $post_id, array $body ) {
         update_post_meta( $post_id, 'mx_scu_url', $url );
     }
 }
-
