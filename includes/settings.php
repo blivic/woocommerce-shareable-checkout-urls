@@ -89,15 +89,6 @@ function mx_scu_advanced_settings( $settings, $current_section ) {
             'contributor'   => __( 'Contributor',     'shareable-checkout-urls' ),
         ],
     ];
-	
-	$scu_settings[] = [
-        'title'   => __( 'Experimental: SKU/Slug Support', 'shareable-checkout-urls' ),
-        'id'      => 'scu_enable_sku_slug',
-        'type'    => 'checkbox',
-        'default' => 'no',
-        'desc'    => __( 'Allow non-numeric identifiers (SKU or product slug) in shareable URLs. Use IDs only for maximum reliability.', 'shareable-checkout-urls' ),
-        'autoload' => false,
-    ];
 
     $scu_settings[] = [
         'type' => 'sectionend',
@@ -242,6 +233,36 @@ function mx_scu_advanced_settings( $settings, $current_section ) {
     $scu_settings[] = [
         'type' => 'sectionend',
         'id'   => 'scu_email_options',
+    ];
+	
+	  $scu_settings[] = [
+        'title' => __( 'Experimental features', 'shareable-checkout-urls' ),
+        'type'  => 'title',
+        'desc'  => __( 'Use with caution. For now, these features enable additional options ONLY for manually created Shareable links', 'shareable-checkout-urls' ),
+        'id'    => 'scu_experimental_options',
+    ];
+	
+	$scu_settings[] = [
+        'title'   => __( 'Experimental: SKU/Slug Support', 'shareable-checkout-urls' ),
+        'id'      => 'scu_enable_sku_slug',
+        'type'    => 'checkbox',
+        'default' => 'no',
+        'desc'    => __( 'Allow non-numeric identifiers (SKU or product slug) in shareable URLs. Use IDs only for maximum reliability.', 'shareable-checkout-urls' ),
+        'autoload' => false,
+    ];
+	
+	$scu_settings[] = [
+        'title'   => __( 'Experimental: Multi-Coupon Support', 'shareable-checkout-urls' ),
+        'id'      => 'scu_enable_multi_coupon',
+        'type'    => 'checkbox',
+        'default' => 'no',
+        'desc'    => __( 'Allow a comma-separated list of coupons in the URL (e.g. &coupon=SUMMER10,SPRING5).', 'shareable-checkout-urls' ),
+        'autoload'=> false,
+    ];
+	
+	 $scu_settings[] = [
+        'type' => 'sectionend',
+        'id'   => 'scu_experimental_options',
     ];
 
     return $scu_settings;

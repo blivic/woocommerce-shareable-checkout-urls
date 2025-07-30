@@ -99,7 +99,7 @@ function mx_scu_handle_endpoint() {
 
         if ( $max && $cnt + 1 >= $max ) {
             wp_update_post( [ 'ID' => $scu_id, 'post_status' => 'draft' ] );
-        }
+			}
 
         WC()->session->set( 'mx_scu_link_id',     $scu_id );
         WC()->session->set( 'mx_scu_cart_scu_id', $scu_id );
@@ -128,9 +128,25 @@ function mx_scu_handle_endpoint() {
         }
     }
 
-    if ( ! empty( $_GET['coupon'] ) ) {
-        WC()->cart->apply_coupon( sanitize_text_field( wp_unslash( $_GET['coupon'] ) ) );
+   if ( ! empty( $_GET['coupon'] ) ) {
+    $raw = sanitize_text_field( wp_unslash( $_GET['coupon'] ) );
+
+    if ( get_option( 'scu_enable_multi_coupon', 'no' ) === 'yes' ) {
+        // split on commas, apply each
+        $codes = array_filter( array_map( 'trim', explode( ',', $raw ) ) );
+        foreach ( $codes as $code ) {
+            try {
+                WC()->cart->apply_coupon( $code );
+            } catch ( Exception $e ) {
+                // collect/display an error for this particular code
+                wc_add_notice( $e->getMessage(), 'error' );
+            }
+        }
+    } else {
+        // legacy single-coupon behavior
+        WC()->cart->apply_coupon( $raw );
     }
+}
 
     $checkout_url = wc_get_checkout_url();
 
