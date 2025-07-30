@@ -228,7 +228,6 @@ Here's a list of upcoming enhancements and features planned for future releases:
 ## Changelog
 
 = 1.5 =
-### NEW
 * Inline modal for CSV import/export directly on the CPT list page
 * Drag & drop or click-to-browse file picker with real-time header validation (requires exact columns: `scu name,products,coupon`).  
 * Downloadable CSV template via AJAX, pre-filled with header row and sample data.  
