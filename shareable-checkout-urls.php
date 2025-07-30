@@ -2,14 +2,14 @@
 	/**
  * Plugin Name:       Shareable Checkout URLs
  * Description:       Build, save & edit shareable checkout URLs (products + coupon) under Products.
- * Version:           1.4.1
+ * Version:           1.5
  * Author:            Media X
  * Author URI:        https://media-x.hr
  * Text Domain:       shareable-checkout-urls
  * Requires at least: WordPress 5.5
  * Tested up to:      WordPress 6.8
  * WC requires at least: WooCommerce 10.0
- * WC tested up to:      WooCommerce 10.0
+ * WC tested up to:      WooCommerce 10.0.4
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -30,7 +30,6 @@ function mx_scu_load_textdomain() {
 
 
 define( 'SCU_PLUGIN_FILE', __FILE__ );
-// Core includes
 require_once __DIR__ . '/includes/utils.php';
 require_once __DIR__ . '/includes/post-types.php';
 require_once __DIR__ . '/includes/meta-boxes.php';
@@ -41,6 +40,7 @@ require_once __DIR__ . '/includes/order-tracking.php';
 require_once __DIR__ . '/includes/rest-api.php';
 require_once __DIR__ . '/includes/ajax-handlers.php';
 require_once __DIR__ . '/includes/shortcodes.php';
+require_once __DIR__ . '/includes/admin-bulk.php';
 
 
 
@@ -100,6 +100,8 @@ function mx_scu_add_action_links( $links ) {
     return $links;
 }
 
+
+// WooCommerce custom tables compatibility
 add_action( 'before_woocommerce_init', function() {
     if ( class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
         \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
@@ -110,6 +112,7 @@ add_action( 'before_woocommerce_init', function() {
     }
 } );
 
+// Activation check
 register_activation_hook( __FILE__, 'mx_activation_check' );
 function mx_activation_check() {
     if ( ! class_exists( 'WooCommerce' )
