@@ -239,6 +239,7 @@ Here's a list of upcoming enhancements and features planned for future releases:
   
 = 1.4.1 =
 * New: Added “Experimental: SKU/Slug Support” setting. When enabled, non-numeric identifiers in your shareable URLs (product SKUs or slugs) are automatically converted to the correct product IDs before validation and cart addition.
+* New: Added “Experimental: Multi-Coupon Support”. Allow a comma-separated list of coupons in the URL (e.g. &coupon=SUMMER10,SPRING5).
   
 = 1.4 =
 * New: Send Shareable URL by Email<br/>
