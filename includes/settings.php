@@ -338,7 +338,3 @@ add_action( 'admin_footer', function() {
         <?php
     }
 } );
-
-
-
-
