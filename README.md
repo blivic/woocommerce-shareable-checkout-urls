@@ -218,7 +218,7 @@ Here's a list of upcoming enhancements and features planned for future releases:
 * Drag & drop or click-to-browse file picker with real-time header validation (requires exact columns: `scu name,products,coupon`).  
 * Downloadable CSV template via AJAX, pre-filled with header row and sample data.  
 * Background-queued import using WP-Cron (chunked at 50 rows), with a progress bar and “X of Y processed…” feedback.  
-* Automatic modal close and page reload ~2.5 seconds after a successful import.  
+* Automatic modal close and page reload after a successful import.  
 * Timestamped export filenames, e.g. `scu-export-2025-07-29_16-45-12.csv`
 * Improved capability checks (`mx_scu_cpt_capability()`) and nonce validations for all endpoints. 
 * Expanded export columns to include: Uses (`mx_scu_uses`), Orders (`mx_scu_order_count`), Revenue (`mx_scu_order_total`) and Conversion Rate (orders ÷ uses × 100%)
