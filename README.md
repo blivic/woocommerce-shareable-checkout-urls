@@ -67,7 +67,7 @@ Build, save & edit shareable checkout URLs (products + coupon) under **Products*
 
 - WordPress 5.5 or higher  
 - WooCommerce 10.0 or higher  
-- Tested up to WordPress 6.8 & WooCommerce 10.0  
+- Tested up to WordPress 6.8.2 & WooCommerce 10.0.4  
 
 ---
 
