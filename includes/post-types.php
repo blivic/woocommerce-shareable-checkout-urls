@@ -195,4 +195,3 @@ function mx_scu_email_modal_html() {
     </div>
     <?php
 }
-
